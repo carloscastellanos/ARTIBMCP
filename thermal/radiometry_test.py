@@ -256,7 +256,7 @@ def main():
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("-r", "--range", nargs="+", default=[20, 40], help="The temerpature range to look for")
+    parser.add_argument("-r", "--range", nargs="+", default=[20, 40], help="The temperature range to look for")
     parser.add_argument("-g", "--grayscale", default=True, help="use grayscale or a color LUT")
     args = parser.parse_args()
     main()
