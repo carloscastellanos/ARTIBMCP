@@ -206,8 +206,8 @@ def main():
             #
             # Min/max value to pin across the LUT
             #
-            min_c = ctok(24)
-            max_c = ctok(40)
+            min_c = ctok(args.range[0])
+            max_c = ctok(args.range[1])
 
             try:
                 while True:
@@ -224,18 +224,21 @@ def main():
                     data[0][0] = min_c
                     data[-1][-1] = max_c
                     img = raw_to_8bit(data)
-                    # img = cv2.LUT(img, color_map)
+                    if(args.color):
+                        img = cv2.LUT(img, color_map)
+
                     timestr = time.strftime("%Y%m%d-%H%M%S")
 
                     # Max/min values in the top-left
-                    font = cv2.FONT_HERSHEY_SIMPLEX
-                    time_str = "{:.2f}, {:.2f}".format(
-                        ktoc(minVal), ktoc(maxVal))
-                    cv2.putText(img, time_str, (10, 32),
-                                font, 1.0, (155, 165, 237), 2, cv2.LINE_AA)
+                    temp_str = "{:.2f}, {:.2f}".format(ktoc(minVal), ktoc(maxVal))
 
-                    # cv2.imwrite(os.path.join(output_dir, "{:s}.jpg".format(timestr)), img)
-                    # time.sleep(30)
+                    if(args.showtemps):
+                        font = cv2.FONT_HERSHEY_SIMPLEX
+                        cv2.putText(img, temp_str, (10, 32), font, 1.0, (155, 165, 237), 2, cv2.LINE_AA)
+
+                    if(args.timelapse):
+                        cv2.imwrite(os.path.join(output_dir, "{:s}.jpg".format(timestr)), img)
+                        time.sleep(900)  # 15 mins
 
                     # display_temperature_c(img, min_c, minLoc, (255, 0, 0))
                     # display_temperature_c(img, max_c, maxLoc, (0, 0, 255))
@@ -256,7 +259,9 @@ def main():
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("-r", "--range", nargs="+", default=[20, 40], help="The temperature range to look for")
-    parser.add_argument("-g", "--grayscale", default=True, help="use grayscale or a color LUT")
+    parser.add_argument("-r", "--range", nargs="*", default=[20, 40], type=float, help="The temperature range to look for")
+    parser.add_argument("-c", "--color", action="store_true", help="use grayscale or a color LUT")
+    parser.add_argument("-t", "--timelapse", action="store_true", help="timelapse images option")
+    parser.add_argument("-s", "--showtemps", action="store_true", help="show temperature ranges")
     args = parser.parse_args()
     main()
