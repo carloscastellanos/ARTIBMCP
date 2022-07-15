@@ -238,7 +238,7 @@ def main():
 
                     if(args.timelapse):
                         cv2.imwrite(os.path.join(output_dir, "{:s}.jpg".format(timestr)), img)
-                        time.sleep(900)  # 15 mins
+                        time.sleep(900)  # 900 = 15 mins
 
                     # display_temperature_c(img, min_c, minLoc, (255, 0, 0))
                     # display_temperature_c(img, max_c, maxLoc, (0, 0, 255))
