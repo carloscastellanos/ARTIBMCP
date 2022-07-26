@@ -160,6 +160,9 @@ def display_temperature_c(img, val_k, loc, color):
 
 
 def main():
+    prevTime = 0  # will store last time capture time updated
+    INTERVAL = 1;
+    
     ctx = POINTER(uvc_context)()
     dev = POINTER(uvc_device)()
     devh = POINTER(uvc_device_handle)()
@@ -237,8 +240,11 @@ def main():
                         cv2.putText(img, temp_str, (10, 32), font, 1.0, (155, 165, 237), 2, cv2.LINE_AA)
 
                     if(args.timelapse):
-                        cv2.imwrite(os.path.join(output_dir, "{:s}.jpg".format(timestr)), img)
-                        time.sleep(900)  # 900 = 15 mins
+                        currTime = time.time()
+                        if(currTime-prevTime >= INTERVAL):
+                            prevTime = currTime
+                            cv2.imwrite(os.path.join(output_dir, "{:s}.jpg".format(timestr)), img)
+                        # time.sleep(900)  # 900 = 15 mins
 
                     # display_temperature_c(img, min_c, minLoc, (255, 0, 0))
                     # display_temperature_c(img, max_c, maxLoc, (0, 0, 255))
