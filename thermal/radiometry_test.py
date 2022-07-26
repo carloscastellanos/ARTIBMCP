@@ -161,8 +161,8 @@ def display_temperature_c(img, val_k, loc, color):
 
 def main():
     prevTime = 0  # will store last time capture time updated
-    INTERVAL = 1;
-    
+    INTERVAL = 900  # 15 minutes
+
     ctx = POINTER(uvc_context)()
     dev = POINTER(uvc_device)()
     devh = POINTER(uvc_device_handle)()
