@@ -1,3 +1,3 @@
 # ARTIBMCP
 
-Max patches
+diagrams
