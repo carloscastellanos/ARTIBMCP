@@ -49,3 +49,4 @@ requests==2.21.0
 gphoto2==2.3.0
 flirpy==0.3.0
 syphonpy==0.0.2
+glfw==2.5.4
