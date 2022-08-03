@@ -120,7 +120,7 @@ if __name__ == "__main__":
     parser.add_argument("-r", "--roi", required=True, nargs="+", help="the x/y and width/height of the roi")
     parser.add_argument("--ip", default="127.0.0.1", help="The ip of the OSC server")
     parser.add_argument("--port", type=int, default=5005, help="The port the OSC server is listening on")
-    parser.add_argument("--bundle", action="store_true", help="Send contours as an OSC Bundle (instead of individual OSC Messages)")
+    parser.add_argument("-b", "--bundle", action="store_true", help="Send contours as an OSC Bundle (instead of individual OSC Messages)")
     args = parser.parse_args()
     # OSC
     oscClient = udp_client.UDPClient(args.ip, args.port)

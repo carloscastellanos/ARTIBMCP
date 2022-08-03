@@ -10,6 +10,10 @@ import time
 import os
 import argparse
 import numpy as np
+import sys
+sys.path.insert(0, '../utils/')
+import Syphon
+import glfw
 try:
     from queue import Queue
 except ImportError:
@@ -168,6 +172,12 @@ def main():
     devh = POINTER(uvc_device_handle)()
     ctrl = uvc_stream_ctrl()
 
+    # ==== Syphon setup details ====
+    # adding utils folder to the system path
+    syphon_size = (320, 240)
+    # Syphon.Server("window and syphon server name", frame size, show)
+    syphon_thermal_server = Syphon.Server("ServerThermal", syphon_size, show=False)
+
     res = libuvc.uvc_init(byref(ctx), 0)
     if res < 0:
         print("uvc_init error")
@@ -233,11 +243,11 @@ def main():
                     timestr = time.strftime("%Y%m%d-%H%M%S")
 
                     # Max/min values in the top-left
-                    temp_str = "{:.2f}, {:.2f}".format(ktoc(minVal), ktoc(maxVal))
+                    temp_str = "range(" + "{:.2f}, {:.2f}".format(ktoc(minVal), ktoc(maxVal)) + ")"
 
                     if(args.showtemps):
-                        font = cv2.FONT_HERSHEY_SIMPLEX
-                        cv2.putText(img, temp_str, (10, 32), font, 1.0, (155, 165, 237), 2, cv2.LINE_AA)
+                        font = cv2.FONT_HERSHEY_PLAIN
+                        cv2.putText(img, temp_str, (10, 230), font, 0.8, (255, 255, 255), 1, cv2.LINE_AA)
 
                     if(args.timelapse):
                         currTime = time.time()
@@ -248,11 +258,19 @@ def main():
 
                     # display_temperature_c(img, min_c, minLoc, (255, 0, 0))
                     # display_temperature_c(img, max_c, maxLoc, (0, 0, 255))
+
+                    # draw frame using opengl and send it to syphon
                     cv2.imshow('Lepton Radiometry', img)
+                    if(args.color):
+                        img_color_fix = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
+                        syphon_thermal_server.draw_and_send(img_color_fix)
+                    else:
+                        syphon_thermal_server.draw_and_send(img)
                     cv2.waitKey(1)
 
-
+                glfw.terminate()
                 cv2.destroyAllWindows()
+                exit()
             finally:
                 libuvc.uvc_stop_streaming(devh)
 

@@ -4,6 +4,7 @@
 - [libuvc](https://github.com/libuvc/libuvc)
 - [libgphoto2](https://github.com/gphoto/libgphoto2)
 - [libusb](https://github.com/libusb/libusb)
+- [PyOpenGL](http://pyopengl.sourceforge.net/)
 
 Best installed via a package manager (e.g. Homebrew)
 
