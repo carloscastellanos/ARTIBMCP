@@ -167,6 +167,8 @@ def main():
     prevTime = 0  # will store last time capture time updated
     INTERVAL = 900  # 15 minutes
 
+    DIMENSIONS = (320, 240)
+
     ctx = POINTER(uvc_context)()
     dev = POINTER(uvc_device)()
     devh = POINTER(uvc_device_handle)()
@@ -174,7 +176,7 @@ def main():
 
     # ==== Syphon setup details ====
     # adding utils folder to the system path
-    syphon_size = (320, 240)
+    syphon_size = DIMENSIONS
     # Syphon.Server("window and syphon server name", frame size, show)
     syphon_thermal_server = Syphon.Server("ServerThermal", syphon_size, show=False)
 
@@ -224,16 +226,16 @@ def main():
 
             try:
                 while True:
+                    # get a frame from the queue
                     data = q.get(True, 500)
                     if data is None:
                         break
 
-                    data = cv2.resize(data[:, :], (320, 240))
+                    data = cv2.resize(data[:, :], DIMENSIONS)  # resize
                     minVal, maxVal, minLoc, maxLoc = cv2.minMaxLoc(data)
 
                     # Dirty-hack to ensure that the LUT is always scaled
-                    # against the colours we care about
-
+                    # against the colors we care about
                     data[0][0] = min_c
                     data[-1][-1] = max_c
                     img = raw_to_8bit(data)
@@ -249,6 +251,7 @@ def main():
                         font = cv2.FONT_HERSHEY_PLAIN
                         cv2.putText(img, temp_str, (10, 230), font, 0.8, (255, 255, 255), 1, cv2.LINE_AA)
 
+                    # time-lapse
                     if(args.timelapse):
                         currTime = time.time()
                         if(currTime-prevTime >= INTERVAL):
