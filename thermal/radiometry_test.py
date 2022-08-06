@@ -269,11 +269,13 @@ def main():
                         syphon_thermal_server.draw_and_send(img_color_fix)
                     else:
                         syphon_thermal_server.draw_and_send(img)
-                    cv2.waitKey(1)
+
+                    key = cv2.waitKey(50) & 0xFF
+                    if key == 27:
+                        break
 
                 glfw.terminate()
                 cv2.destroyAllWindows()
-                exit()
             finally:
                 libuvc.uvc_stop_streaming(devh)
 
@@ -291,4 +293,4 @@ if __name__ == "__main__":
     parser.add_argument("-t", "--timelapse", action="store_true", help="timelapse images option")
     parser.add_argument("-s", "--showtemps", action="store_true", help="show temperature ranges")
     args = parser.parse_args()
-    main()
+    sys.exit(main())
