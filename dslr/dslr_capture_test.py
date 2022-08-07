@@ -4,6 +4,7 @@ import time
 import logging
 import argparse
 import cv2
+import numpy as np
 sys.path.insert(0, '../utils/')  # adding utils folder to the system path
 import Syphon
 import glfw
@@ -32,7 +33,7 @@ def setupCamera(target="Memory card"):
     capture_target = config.get_child_by_name('capturetarget')
 
     # set value to Memory card (default) or Internal RAM
-    value = capture_target.get_value()
+    # value = capture_target.get_value()
     capture_target.set_value(target)
     # set config
     camera.set_config(config)
