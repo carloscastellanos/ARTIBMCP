@@ -11,7 +11,7 @@ import os
 import argparse
 import numpy as np
 import sys
-sys.path.insert(0, '../utils/')
+sys.path.insert(0, '../utils/')  # adding utils folder to the system path
 import Syphon
 import glfw
 try:
@@ -175,7 +175,6 @@ def main():
     ctrl = uvc_stream_ctrl()
 
     # ==== Syphon setup details ====
-    # adding utils folder to the system path
     syphon_size = DIMENSIONS
     # Syphon.Server("window and syphon server name", frame size, show)
     syphon_thermal_server = Syphon.Server("ServerThermal", syphon_size, show=False)
