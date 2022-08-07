@@ -1,5 +1,7 @@
 # ARTIBMCP
 
+Repository for the [ARTIBMCP](https://artibmcp.webs.upv.es/) residency project at [UPV](https://www.upv.es/en), Valencia, Spain
+
 ## Dependencies:
 - [libuvc](https://github.com/libuvc/libuvc)
 - [libgphoto2](https://github.com/gphoto/libgphoto2)
@@ -15,9 +17,5 @@ conda activate [name of your environment]
 pip install -r requirements.txt
 ```
 
-To access your virtual environment via Jupyter notebooks on your machine:
-```
-python -m ipykernel install --user --name [name of your environment]
-```
 
 Note: the syphonpy package works with the Syphon Framework, which is MacOS only
