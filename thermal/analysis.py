@@ -2,6 +2,10 @@ import numpy as np
 import cv2
 import argparse
 import math
+import sys
+sys.path.insert(0, '../utils/')  # adding utils folder to the system path
+import Syphon
+import glfw
 from pythonosc import udp_client, osc_message_builder, osc_bundle_builder
 
 
@@ -51,11 +55,17 @@ def sendContours(bundle_list, addr='/leaf'):
 
 
 def main():
+    DIMENSIONS = (320, 240)
+
     # load image, convert to gray and scale down
     img = loadImg('captures/20220715-193723.jpg', gray=True)
 
+    # ==== Syphon setup details ====
+    # Syphon.Server("window and syphon server name", frame size, show)
+    syphon_analysis_server = Syphon.Server("ServerAnalysis", DIMENSIONS, show=False)
+
     # the roi variables
-    x, y, w, h = args.roi
+    x, y, w, h = args.roi  # -r 80 60 190 160 -t 140
     # remove areas outside of roi
     img[0:int(y), 0:int(x)] = np.zeros((int(y), int(x)), dtype=np.uint8)  # top left
     img[0:int(y), img.shape[1]-int(x):img.shape[1]] = np.zeros((int(y), int(x)), dtype=np.uint8)  # top right
@@ -105,12 +115,16 @@ def main():
     cv2.imshow("Image orig", loadImg('captures/20220715-193723.jpg'))
     cv2.imshow("Contours", out)
     cv2.imshow("Image", img)
+    # draw frame using opengl and send it to syphon
+    out2 = cv2.cvtColor(out, cv2.COLOR_GRAY2RGB)
+    syphon_analysis_server.draw_and_send(out2)
 
     while True:
         key = cv2.waitKey(1) & 0xFF
         if key == 27:
             break
 
+    glfw.terminate()
     cv2.destroyAllWindows()
 
 
@@ -125,4 +139,4 @@ if __name__ == "__main__":
     # OSC
     oscClient = udp_client.UDPClient(args.ip, args.port)
     print(" ")
-    main()
+    sys.exit(main())
