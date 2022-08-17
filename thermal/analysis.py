@@ -62,7 +62,7 @@ def main():
 
     # ==== Syphon setup details ====
     # Syphon.Server("window and syphon server name", frame size, show)
-    syphon_analysis_server = Syphon.Server("ServerAnalysis", DIMENSIONS, show=False)
+    syphon_thermalcv_server = Syphon.Server("ServerThermalCV", DIMENSIONS, show=False)
 
     # the roi variables
     x, y, w, h = args.roi  # -r 80 60 190 160 -t 140
@@ -117,7 +117,7 @@ def main():
     cv2.imshow("Image", img)
     # draw frame using opengl and send it to syphon
     out2 = cv2.cvtColor(out, cv2.COLOR_GRAY2RGB)
-    syphon_analysis_server.draw_and_send(out2)
+    syphon_thermalcv_server.draw_and_send(out2)
 
     while True:
         key = cv2.waitKey(1) & 0xFF
