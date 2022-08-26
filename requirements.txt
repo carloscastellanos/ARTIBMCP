@@ -58,4 +58,5 @@ glfw==2.5.4
 PyOpenGL==3.1.5
 PyOpenGL_accelerate==3.1.5
 sh==1.14.2
+pyttsx3==2.90
 gphoto2==2.3.4 --only-binary :all:
