@@ -25,7 +25,7 @@ def scaleImg(img, scaleFactor=0.5):
     return cv2.resize(img, (width, height), interpolation=cv2.INTER_AREA)
 
 
-def sendContour(id, perimeter, area, circularity, solidity, addr='/leaf'):
+def sendContour(id, perimeter, area, circularity, solidity, addr='/thermal/leaf'):
     # send OSC Message representing analysis of a leaf contour, in the form of:
     # ["/leaf", id, perimeter, area, circularity, solidity, addr]
     msg = osc_message_builder.OscMessageBuilder(address=addr)
@@ -37,7 +37,7 @@ def sendContour(id, perimeter, area, circularity, solidity, addr='/leaf'):
     oscClient.send(msg.build())
 
 
-def sendContours(bundle_list, addr='/leaf'):
+def sendContours(bundle_list, addr='/thermal/leaf'):
     # send OSC Bundle with OSC messages representing all contour bounding boxes:
     # ["/swarm/contour", id, area, x, y, w, h]
     bundle = osc_bundle_builder.OscBundleBuilder(osc_bundle_builder.IMMEDIATELY)
