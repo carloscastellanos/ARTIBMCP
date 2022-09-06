@@ -37,12 +37,12 @@ def sendContour(id, perimeter, area, circularity, solidity, addr='/thermal/leaf'
     oscClient.send(msg.build())
 
 
-def sendContours(bundle_list, addr='/thermal/leaf'):
+def sendContours(bundle_list):
     # send OSC Bundle with OSC messages representing all contour bounding boxes:
     # ["/swarm/contour", id, area, x, y, w, h]
     bundle = osc_bundle_builder.OscBundleBuilder(osc_bundle_builder.IMMEDIATELY)
     for b in bundle_list:
-        id, perimeter, area, circularity, solidity = b
+        addr, id, perimeter, area, circularity, solidity = b
         msg = osc_message_builder.OscMessageBuilder(address=addr)
         msg.add_arg(id, arg_type='i')
         msg.add_arg(perimeter, arg_type='f')
@@ -83,6 +83,8 @@ def main():
 
     leaves_bundle = []
 
+    addr = '/thermal/leaf'
+
     # draw the contours
     for i in range(len(contours)):
         # -1 in 4th column means it's an external contour
@@ -94,7 +96,7 @@ def main():
             hullArea = cv2.contourArea(hull)
             solidity = area / hullArea
             if(args.bundle):
-                leaves_bundle.append([i, perimeter, area, circularity, solidity])
+                leaves_bundle.append([addr, i, perimeter, area, circularity, solidity])
             else:
                 sendContour(i, perimeter, area, circularity, solidity)
             x, y, w, h = cv2.boundingRect(contours[i])
