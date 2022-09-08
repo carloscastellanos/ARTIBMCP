@@ -70,7 +70,7 @@ def main():
                 file_path = camera.capture(gp.GP_CAPTURE_IMAGE)
                 print('Camera file path: {0}/{1}'.format(file_path.folder, file_path.name))
                 # rename the file with a timestamp
-                if file_path.name.endswith(".JPG"):
+                if file_path.name.lower().endswith(".jpg"):
                     new_filename = "{}.jpg".format(timestr)
                 target = os.path.join('', new_filename)
                 print('Copying image to', target)
