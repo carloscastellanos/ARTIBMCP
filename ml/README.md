@@ -1,3 +1,0 @@
-# ARTIBMCP
-
-## Machine Learning:

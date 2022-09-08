@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import numpy as np
 import cv2
 import argparse
@@ -57,7 +58,7 @@ def sendContours(bundle_list):
 def main():
     DIMENSIONS = (320, 240)
 
-    # load image, convert to gray and scale down
+    # load image
     img = loadImg('captures/20220715-193723.jpg', gray=True)
 
     # ==== Syphon setup details ====
