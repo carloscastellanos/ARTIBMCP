@@ -13,4 +13,4 @@ Required Elements:
 
 Before loading the code into the Arduino, make sure that you have built the following circuit:
 
-[Scheme](./Scheme-Temporal.PNG)
+![Scheme](./Scheme-Temporal.PNG)
