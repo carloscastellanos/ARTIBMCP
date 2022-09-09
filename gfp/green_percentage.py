@@ -21,16 +21,18 @@ def loadImg(s, read_as_float32=False, gray=False):
 
 def main():
     # load image
-    img = loadImg('captures/20220715-193723.jpg', gray=True)
+    img = loadImg('captures/dr5spray-seedlings-03.jpg')
 
     # target color (RGB)
-    gfp = [40, 160, 0]
+    gfp = [0, 139, 0]
 
     # interval that covers the values in the tuple and are below and above them
-    range = 20
+    rrange = 5
+    grange = 116
+    brange = 10
 
     # since opencv loads images in BGR format, the color values need to be adjusted:
-    boundaries = [([gfp[2], gfp[1]-range, gfp[0]-range], [gfp[2]+range, gfp[1]+range, gfp[0]+range])]
+    boundaries = [([gfp[2], gfp[1]-grange, gfp[0]], [gfp[2]+brange, gfp[1]+grange, gfp[0]+rrange])]
 
     # for each range in the boundary list:
     for (lower, upper) in boundaries:
