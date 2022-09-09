@@ -54,7 +54,8 @@ def main():
         # Remember that the white pixels in the mask are those that
         # fall in the defined range, that is, every white pixel corresponds
         # to a green pixel. Divide by the image size and you got the
-        # percentage of green pixels in the original image:
+        # percentage of green pixels in the original image
+        # note: img.size gives the number of pixels fro all 3 color channels combined
         ratio_green = cv2.countNonZero(mask)/(img.size/3)
 
         # This is the color percent calculation
