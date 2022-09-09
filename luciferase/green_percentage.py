@@ -27,18 +27,18 @@ def scaleImg(img, scaleFactor=0.5):
 
 def main():
     # load image
-    img = loadImg('captures/dr5spray-seedlings-03.jpg')
+    img = scaleImg(loadImg('captures/DSC00523.JPG'))
 
     # target color (RGB)
-    gfp = [0, 139, 0]
+    green = [106, 93, 29]
 
     # interval that covers the values in the tuple and are below and above them
-    rrange = 5
-    grange = 116
-    brange = 10
+    rrange = 96
+    grange = 82
+    brange = 29
 
     # since opencv loads images in BGR format, the color values need to be adjusted:
-    boundaries = [([gfp[2], gfp[1]-grange, gfp[0]], [gfp[2]+brange, gfp[1]+grange, gfp[0]+rrange])]
+    boundaries = [([green[2]-brange, green[1]-grange, green[0]-rrange], [green[2]+brange, green[1]+grange, green[0]+rrange])]
 
     # for each range in the boundary list:
     for (lower, upper) in boundaries:
@@ -68,7 +68,7 @@ def main():
         colorPercent = (ratio_green * 100)
 
         # Print the color percent, use 2 figures past the decimal point
-        print('gfp pixel percentage:', np.round(colorPercent, 2))
+        print('green pixel percentage:', np.round(colorPercent, 2))
 
     cv2.imshow("img", img)
     cv2.imshow("binary mask", mask)
