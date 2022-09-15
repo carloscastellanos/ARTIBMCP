@@ -1,0 +1,34 @@
+{
+	"pattrstorage" : 	{
+		"name" : "thermal_main",
+		"slots" : 		{
+			"1" : 			{
+				"id" : 1,
+				"data" : 				{
+					"main_out_level" : [ 127 ],
+					"moisture" : [ 0.0 ],
+					"moisture_slider" : [ 0.0 ],
+					"parsed_osc_console" : [ "<empty>" ],
+					"raw_osc_console" : [ "<empty>" ],
+					"temperature" : [ 15.0 ],
+					"temperature_slider" : [ 0.0 ],
+					"SOUND::chopper_return_level" : [ 123 ],
+					"SOUND::chopper_send_level" : [ 125 ],
+					"SOUND::comb_resonator_return_level" : [ 97 ],
+					"SOUND::comb_resonator_send_level" : [ 104 ],
+					"SOUND::pfft_out_level" : [ 126 ],
+					"SOUND::reverb_return_level" : [ 102 ],
+					"SOUND::reverb_send_level" : [ 94 ],
+					"SOUND::creepyVerb::reverb_decay" : [ 130.0 ],
+					"PEGAccum::peg_accum" : [ 0.62 ],
+					"WaterAccum::water_accum" : [ 0.0 ],
+					"ABAAccum::aba_accum" : [ 0.52 ]
+				}
+
+			}
+
+		}
+
+	}
+
+}
