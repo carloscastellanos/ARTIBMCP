@@ -212,7 +212,6 @@ def main():
                 print("uvc_start_streaming failed: {0}".format(res))
                 exit(1)
 
-
             output_dir = "captures"
             color_map = generate_color_map()
 
@@ -254,6 +253,7 @@ def main():
                         currTime = time.time()
                         if(currTime-prevTime >= INTERVAL):
                             prevTime = currTime
+                            print("capturing image...")
                             cv2.imwrite(os.path.join(output_dir, "{:s}.jpg".format(timestr)), img)
                         # time.sleep(900)  # 900 = 15 mins
 
