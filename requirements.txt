@@ -37,14 +37,14 @@ python-osc==1.8.0
 pytz==2022.1
 PyYAML==5.4.1
 qtconsole==5.2.2
-termcolor==1.1.0
+termcolor==2.0.1
 terminado==0.13.3
 testpath==0.6.0
 tornado==6.2
 tqdm==4.64.0
 wcwidth==0.2.5
 wheel==0.37.1
-wrapt==1.12.1
+wrapt==1.14.1
 tensorflow==2.5.1
 seaborn==0.11.2
 labelImg
@@ -56,7 +56,7 @@ flirpy==0.3.0
 syphonpy==0.0.2
 glfw==2.5.4
 PyOpenGL==3.1.5
-PyOpenGL_accelerate==3.1.5
+PyOpenGL-accelerate==3.1.5
 sh==1.14.2
 pyttsx3==2.90
 gphoto2==2.3.4 --only-binary :all:
