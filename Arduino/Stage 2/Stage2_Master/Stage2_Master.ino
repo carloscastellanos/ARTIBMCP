@@ -1,5 +1,5 @@
 /*
-      STATE #3 - Arduino Nano
+      STAGE #2 - Arduino Nano
 
       Pump Water:
         Disable all -> w0
