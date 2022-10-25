@@ -1,6 +1,19 @@
 #include <Wire.h>
 #include "Wire.h"
 
+// set all moisture sensors PIN ID
+int moisture1 = A0;
+int moisture2 = A1;
+int moisture3 = A2;
+int moisture4 = A3;
+
+// declare moisture values
+int moisture1_value = 0;
+int moisture2_value = 0;
+int moisture3_value = 0;
+int moisture4_value = 0;
+
+
 // set water relays
 int relay1 = 6;
 int relay2 = 8;
@@ -32,16 +45,19 @@ int relay4_state_flag = 0;
 
 int relaysFlags[] = {relay1_state_flag, relay2_state_flag, relay3_state_flag, relay4_state_flag};
 
-// --------------- I2C ------------
-//                      pump &   activeTime
-// Expecting to receive int char float
-//                bytes: 4  1    4       = 9
-//              example: 1&1000
-#define BUFFER_SIZE 9
+/*
+ *                I2C
+                       pump &   activeTime
+   Expecting to receive int char float
+                  bytes: 4  1    4       = 9
+                example: 1&1000
+ */
+
+#define BUFFER_SIZE 4
 short data[BUFFER_SIZE];
 int incomingMSG;
 
-byte slaveAddress = 8;
+byte slaveAddress = 9;
 
 void setup()
 {
@@ -59,6 +75,16 @@ void setup()
   // Initialize I2C
   Wire.begin(slaveAddress);
   Wire.onReceive(receiveEvent);
+  Wire.onRequest(requestEvent);
+}
+
+void requestEvent()
+{
+  data[0] = moisture1_value; // In order to use short, I multiple by 10
+  data[1] = moisture2_value;
+  data[2] = moisture3_value;
+  data[3] = moisture4_value;
+  Wire.write((byte*)data, BUFFER_SIZE * sizeof(short));
 }
 
 void loop()
@@ -67,6 +93,9 @@ void loop()
   HandlePumpTimer(2);
   HandlePumpTimer(3);
   HandlePumpTimer(4);
+
+  ReadMoisture();
+  ReadTemperature();
 }
 
 int currentPump;
@@ -143,5 +172,41 @@ void HandlePumpTimer(int pumpNumber)
       pumpTimer[pumpNumber - 1] = millis();
       stopWater(pumpNumber);
     }
+  }
+}
+
+//Set moisture value
+void ReadMoisture()
+{
+  /**************These is for resistor moisture sensor***********
+    float value1 = analogRead(A0);
+    moisture1_value = (value1 * 120) / 1023; delay(20);
+    float value2 = analogRead(A1);
+    moisture2_value = (value2 * 120) / 1023; delay(20);
+    float value3 = analogRead(A2);
+    moisture3_value = (value3 * 120) / 1023; delay(20);
+    float value4 = analogRead(A3);
+    moisture4_value = (value4 * 120) / 1023; delay(20);
+   **********************************************************/
+  /************These is for capacity moisture sensor*********/
+  float value1 = analogRead(moisture1);
+  moisture1_value = map(value1, 590, 360, 0, 100);
+  if (moisture1_value < 0) {
+    moisture1_value = 0;
+  }
+  float value2 = analogRead(moisture2);
+  moisture2_value = map(value2, 600, 360, 0, 100);
+  if (moisture2_value < 0) {
+    moisture2_value = 0;
+  }
+  float value3 = analogRead(moisture3);
+  moisture3_value = map(value3, 600, 360, 0, 100);
+  if (moisture3_value < 0) {
+    moisture3_value = 0;
+  }
+  float value4 = analogRead(moisture4);
+  moisture4_value = map(value4, 600, 360, 0, 100);
+  if (moisture4_value < 0) {
+    moisture4_value = 0;
   }
 }
