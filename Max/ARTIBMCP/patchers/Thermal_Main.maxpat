@@ -11761,7 +11761,7 @@
 					"patching_rect" : [ 640.5, 269.5, 165.0, 21.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 1054.5, 172.0, 142.0, 21.0 ],
-					"text" : "6.41 HORAS",
+					"text" : "22.73 HORAS",
 					"textcolor" : [ 0.699999988079071, 0.699999988079071, 0.699999988079071, 1.0 ],
 					"varname" : "hours"
 				}
@@ -11815,7 +11815,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 608.5, 153.374755999999991, 185.0, 22.0 ],
-					"text" : "6.414927"
+					"text" : "22.733286"
 				}
 
 			}
@@ -11881,7 +11881,7 @@
 					"outlettype" : [ "", "", "", "" ],
 					"patching_rect" : [ 1360.5, 24.5, 56.0, 22.0 ],
 					"restore" : 					{
-						"main_out_level" : [ 127 ],
+						"main_out_level" : [ 145 ],
 						"moisture" : [ 0.0 ],
 						"moisture_slider" : [ 0.0 ],
 						"temperature" : [ 15.0 ],
@@ -14120,7 +14120,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 1773.0, 908.0, 915.0, 795.0 ],
+						"rect" : [ 748.0, 280.0, 915.0, 795.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -20205,9 +20205,9 @@
 									"restore" : 									{
 										"chopper_return_level" : [ 123 ],
 										"chopper_send_level" : [ 125 ],
-										"comb_resonator_return_level" : [ 97 ],
+										"comb_resonator_return_level" : [ 129 ],
 										"comb_resonator_send_level" : [ 104 ],
-										"pfft_out_level" : [ 126 ],
+										"pfft_out_level" : [ 139 ],
 										"reverb_return_level" : [ 102 ],
 										"reverb_send_level" : [ 94 ]
 									}

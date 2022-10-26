@@ -6,18 +6,16 @@
 				"id" : 1,
 				"data" : 				{
 					"luminosity" : [ 0.0 ],
-					"luminosity_slider" : [ 0.0 ],
-					"main_out_level" : [ 125 ],
-					"parsed_osc_console" : [ "<empty>" ],
-					"raw_osc_console" : [ "<empty>" ],
+					"luminosity_slider" : [ 0.2467 ],
+					"main_out_level" : [ 146 ],
 					"SOUND::chopper_return_level" : [ 124 ],
 					"SOUND::chopper_send_level" : [ 123 ],
-					"SOUND::comb_resonator_return_level" : [ 111 ],
+					"SOUND::comb_resonator_return_level" : [ 128 ],
 					"SOUND::comb_resonator_send_level" : [ 108 ],
-					"SOUND::pfft_out_level" : [ 119 ],
-					"PEGAccum::peg_accum" : [ 0.2 ],
-					"ABAAccum::aba_accum" : [ 0.1 ],
-					"ABAAccum[1]::aba_accum" : [ 0.0 ]
+					"SOUND::pfft_out_level" : [ 139 ],
+					"Accumulations::aba_accum" : [ 0.0 ],
+					"Accumulations::peg_accum" : [ 0.0 ],
+					"Accumulations::water_accum" : [ 0.0 ]
 				}
 
 			}

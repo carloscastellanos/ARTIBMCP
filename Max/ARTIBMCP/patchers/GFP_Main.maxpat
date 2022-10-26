@@ -9604,7 +9604,7 @@
 					"patching_rect" : [ 677.0, 272.0, 134.0, 21.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 1134.5, 172.0, 142.0, 21.0 ],
-					"text" : "6.43 HORAS",
+					"text" : "22.75 HORAS",
 					"textcolor" : [ 0.699999988079071, 0.699999988079071, 0.699999988079071, 1.0 ],
 					"varname" : "hours"
 				}
@@ -9634,7 +9634,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 605.092345999999907, 158.5, 185.0, 22.0 ],
-					"text" : "6.425731"
+					"text" : "22.745064"
 				}
 
 			}
@@ -9678,7 +9678,7 @@
 					"restore" : 					{
 						"luminosity" : [ 0.0 ],
 						"luminosity_slider" : [ 0.2467 ],
-						"main_out_level" : [ 127 ]
+						"main_out_level" : [ 142 ]
 					}
 ,
 					"text" : "autopattr",
@@ -13212,9 +13212,9 @@
 									"restore" : 									{
 										"chopper_return_level" : [ 124 ],
 										"chopper_send_level" : [ 123 ],
-										"comb_resonator_return_level" : [ 110 ],
+										"comb_resonator_return_level" : [ 130 ],
 										"comb_resonator_send_level" : [ 111 ],
-										"pfft_out_level" : [ 119 ]
+										"pfft_out_level" : [ 139 ]
 									}
 ,
 									"text" : "autopattr",
