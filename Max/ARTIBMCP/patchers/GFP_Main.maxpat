@@ -9604,7 +9604,7 @@
 					"patching_rect" : [ 677.0, 272.0, 134.0, 21.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 1134.5, 172.0, 142.0, 21.0 ],
-					"text" : "22.75 HORAS",
+					"text" : "59.89 HORAS",
 					"textcolor" : [ 0.699999988079071, 0.699999988079071, 0.699999988079071, 1.0 ],
 					"varname" : "hours"
 				}
@@ -9634,7 +9634,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 605.092345999999907, 158.5, 185.0, 22.0 ],
-					"text" : "22.745064"
+					"text" : "59.892743"
 				}
 
 			}
@@ -13289,7 +13289,7 @@
 										}
 ,
 										"classnamespace" : "box",
-										"rect" : [ 525.0, 370.0, 734.0, 610.0 ],
+										"rect" : [ 519.0, 303.0, 734.0, 610.0 ],
 										"bglocked" : 0,
 										"openinpresentation" : 0,
 										"default_fontsize" : 12.0,
@@ -20406,7 +20406,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 762.0, 279.0, 816.0, 551.0 ],
+						"rect" : [ 1004.0, 495.0, 816.0, 551.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -20435,6 +20435,7 @@
 						"subpatcher_template" : "",
 						"showontab" : 0,
 						"assistshowspatchername" : 0,
+						"visible" : 1,
 						"boxes" : [ 							{
 								"box" : 								{
 									"comment" : "parsed output (/plate/luminosity)",
