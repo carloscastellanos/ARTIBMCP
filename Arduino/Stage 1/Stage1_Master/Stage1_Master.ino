@@ -21,6 +21,7 @@
 
       ------------------------ Retreive Info
 
+      Full Message Example: m 55.8 t 21.4 l 1
       Temperature:
         Get Value -> t 0.0
 
@@ -38,8 +39,8 @@
 #include <Wire.h>
 
 /*
- *    CORE VARIABLES DEFINITION
- */
+      CORE VARIABLES DEFINITION
+*/
 
 // Slave with Water Pumps = 8
 // Slave with Peg Pumps = 9
@@ -168,7 +169,7 @@ bool growLights_state = false;
 
 void InitializeGrowLights()
 {
-  for(int i = 0; i < sizeof(growLights_PIN); i++)
+  for (int i = 0; i < sizeof(growLights_PIN); i++)
   {
     pinMode(growLights_PIN[i], OUTPUT);
   }
@@ -176,20 +177,20 @@ void InitializeGrowLights()
 
 void HandleGrowLights()
 {
-  for(int i = 0; i < sizeof(growLights_PIN); i++)
+  for (int i = 0; i < sizeof(growLights_PIN); i++)
   {
     digitalWrite(growLights_PIN[i], growLights_state ? HIGH : LOW);
   }
 }
 
-/* 
- *    HEATING PADS
- */
+/*
+      HEATING PADS
+*/
 bool heatingPads_state = false;
 
 void InitializeHeatingPads()
 {
-  for(int i = 0; i < sizeof(heatingPads_PIN); i++)
+  for (int i = 0; i < sizeof(heatingPads_PIN); i++)
   {
     pinMode(heatingPads_PIN[i], OUTPUT);
   }
@@ -197,7 +198,7 @@ void InitializeHeatingPads()
 
 void HandleHeatingPads()
 {
-  for(int i = 0; i < sizeof(heatingPads_PIN); i++)
+  for (int i = 0; i < sizeof(heatingPads_PIN); i++)
   {
     digitalWrite(heatingPads_PIN[i], heatingPads_state ? HIGH : LOW);
   }
@@ -241,7 +242,7 @@ void HandleSerialCOM()
       {
         msgMagnitude = msg.substring(3, msg.length() - 2).toFloat();
         msgValue = msg.substring(msg.length() - 2).toInt();
-        
+
         SendCommand(slaveAddress[1], msgValue + 1, msgMagnitude);
       }
 
@@ -255,27 +256,16 @@ void HandleSerialCOM()
         isMakingMist = true;
       }
 
-      if (msgType == humidity)
-      {
-        dtostrf(humidity_mean, 1, 2, value2retrieve);
-        info2retrieve = humidity + delimiter;
-        for(int i = 0; i < sizeof(value2retrieve); i++) info2retrieve += value2retrieve[i];
-        Serial.println(info2retrieve);
-      }
-
-      if (msgType == temperature)
-      {
-        dtostrf(thermistorValue, 1, 2, value2retrieve);
-        info2retrieve = temperature + delimiter;
-        for(int i = 0; i < sizeof(value2retrieve); i++) info2retrieve += value2retrieve[i];
-        Serial.println(info2retrieve);
-      }
-
-      if (msgType == growLights)
-      {
-        info2retrieve = growLights + delimiter + String(((int)growLights_state));
-        Serial.println(info2retrieve);
-      }
+      Serial.print(humidity);
+      Serial.print(delimiter);
+      Serial.print(humidity_mean, 2); // Second parameter defines the decimal places to use
+      Serial.print(temperature);
+      Serial.print(delimiter);
+      Serial.print(thermistorValue, 2); // Second parameter defines the decimal places to use
+      Serial.print(growLights);
+      Serial.print(delimiter);
+      Serial.print((int)growLights_state);
+      Serial.println();
     }
   }
 }
