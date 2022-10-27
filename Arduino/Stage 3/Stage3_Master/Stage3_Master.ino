@@ -24,7 +24,7 @@
 #include <string.h>
 
 #include <Wire.h>
-#define BUFFER_SIZE  8
+#define BUFFER_SIZE 4
 #define READ_CYCLE_DELAY 1000
 
 // Slave with Water Pumps = 8
@@ -110,7 +110,7 @@ void HandleSerialCOM()
 
       if (msgType == water)
       {
-        msgMagnitude = msg.substring(3, msg.length() - 2).toFloat();
+        msgMagnitude = (float)msg.substring(2, msg.length() - 2).toFloat();
         msgValue = msg.substring(msg.length() - 2).toInt();
 
         // Send Command
@@ -119,7 +119,7 @@ void HandleSerialCOM()
 
       if (msgType == peg)
       {
-        msgMagnitude = msg.substring(3, msg.length() - 2).toFloat();
+        msgMagnitude = msg.substring(2, msg.length() - 2).toFloat();
         msgValue = msg.substring(msg.length() - 2).toInt();
 
         // Send Command
@@ -131,7 +131,7 @@ void HandleSerialCOM()
         msgMagnitude = msg.substring(2).toFloat();
         mistTime = msgMagnitude;
         mistTimer = millis();
-        
+
         DOMist(msgValue);
         isMakingMist = true;
       }
@@ -143,13 +143,23 @@ void HandleSerialCOM()
     HANDLE I2C COMMUNICATION
       - Send Command to target pump
 */
-void SendCommand(int _slaveAddress, int targetPump, float _time)
+short data[BUFFER_SIZE];
+
+void SendCommand(int _slaveAddress, int targetPump, int _time)
 {
-  char _timeBuff[6];
-  dtostrf(_time, 1, 2, _timeBuff);
+
+  data[0] = targetPump;
+  data[1] = _time;
+
+  byte myArray[2];
+  myArray[0] = (_time >> 8) & 0xFF;
+  myArray[1] = _time & 0xFF;
+  Wire.beginTransmission(_slaveAddress);
+  Wire.write(myArray, 2);
+  Wire.endTransmission();
+  delay(50);
+  Serial.println(data[0]);
   Wire.beginTransmission(_slaveAddress);    // Transmit to slaveAddress
   Wire.write(targetPump);
-  Wire.write('&');
-  Wire.write(_timeBuff);
-  Wire.endTransmission();                   // Stop transmitting
+  Wire.endTransmission();
 }

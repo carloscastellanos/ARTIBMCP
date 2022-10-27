@@ -33,7 +33,12 @@ int relay4_state_flag = 0;
 int relaysFlags[] = {relay1_state_flag, relay2_state_flag, relay3_state_flag, relay4_state_flag};
 
 // --------------- I2C ------------
+//                      pump &   activeTime
+// Expecting to receive int char float
+//                bytes: 4  1    4       = 9
+//              example: 1&1000
 #define BUFFER_SIZE 4
+byte buffer[BUFFER_SIZE];
 short data[BUFFER_SIZE];
 int incomingMSG;
 
@@ -48,7 +53,7 @@ void setup()
   pinMode(relay2, OUTPUT);
   pinMode(relay3, OUTPUT);
   pinMode(relay4, OUTPUT);
-  
+
   // declare pump as output
   pinMode(pump, OUTPUT);
 
@@ -57,34 +62,47 @@ void setup()
   Wire.onReceive(receiveEvent);
 }
 
-void loop(){}
+void loop()
+{
+  HandlePumpTimer(1);
+  HandlePumpTimer(2);
+  HandlePumpTimer(3);
+  HandlePumpTimer(4);
+}
 
+int currentPump;
+char delimiter;
+int activeTime;
+unsigned long pumpTimer[4] = {0, 0, 0, 0};
+float pumpTime[4] = {0, 0, 0, 0};
+
+bool toggle = false;
 void receiveEvent(int bytes) {
-  incomingMSG = Wire.read();    // read one character from the I2C
-  Serial.print("Something reveiced: ");
-  Serial.println(incomingMSG);
+  // read one character from the I2C
 
-  if (incomingMSG == 0)
-  {
-    Serial.println("Turn OFF All Pomps");
-    for (int i = 0; i < sizeof(relaysFlags); i++)
-    {
-      digitalWrite(relays[i], HIGH);
-    }
-    for (int i = 0; i < sizeof(relaysFlags); i++)
-    {
-      digitalWrite(relays[i], LOW);
-    }
-    delay(1000);
-    for (int i = 0; i < sizeof(relaysFlags); i++)
-    {
-      stopWater(i);
-    }
+  if (toggle) {
+    incomingMSG = Wire.read();
+
+    currentPump = incomingMSG;
+    waterFlower(currentPump);
+    pumpTime[currentPump - 1] = activeTime;
+    pumpTimer[currentPump - 1] = millis();
+    toggle = !toggle;
   } else
   {
-    waterFlower(incomingMSG);
-  }
+    byte a, b;
+    int bigNum;
 
+    a = Wire.read();
+    b = Wire.read();
+
+    bigNum = a;
+    bigNum = (bigNum << 8) | b;
+    activeTime = bigNum;
+
+    toggle = !toggle;
+    Serial.println(activeTime);
+  }
 }
 
 void waterFlower(int pumpNumber) {
@@ -98,8 +116,8 @@ void waterFlower(int pumpNumber) {
     delay(50);
   }
 
-  delay(1000000);
-  stopWater(pumpNumber);
+  //  delay(1000000);
+  //  stopWater(pumpNumber);
 }
 
 void stopWater(int pumpNumber) {
@@ -111,5 +129,17 @@ void stopWater(int pumpNumber) {
     digitalWrite(pump, LOW);
     pump_state_flag = 0;
     delay(50);
+  }
+}
+
+void HandlePumpTimer(int pumpNumber)
+{
+  if (relaysFlags[pumpNumber - 1] == 1)
+  {
+    if (millis() - pumpTimer[pumpNumber - 1] >= pumpTime[pumpNumber - 1])
+    {
+      pumpTimer[pumpNumber - 1] = millis();
+      stopWater(pumpNumber);
+    }
   }
 }

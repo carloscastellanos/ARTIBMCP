@@ -37,7 +37,8 @@ int relaysFlags[] = {relay1_state_flag, relay2_state_flag, relay3_state_flag, re
 // Expecting to receive int char float
 //                bytes: 4  1    4       = 9
 //              example: 1&1000
-#define BUFFER_SIZE 9
+#define BUFFER_SIZE 4
+byte buffer[BUFFER_SIZE];
 short data[BUFFER_SIZE];
 int incomingMSG;
 
@@ -70,37 +71,37 @@ void loop()
 }
 
 int currentPump;
-float activeTime;
+char delimiter;
+int activeTime;
+unsigned long pumpTimer[4] = {0, 0, 0, 0};
+float pumpTime[4] = {0, 0, 0, 0};
 
+bool toggle = false;
 void receiveEvent(int bytes) {
-  incomingMSG = Wire.read();    // read one character from the I2C
-  Serial.print("Something reveiced: ");
-  Serial.println(incomingMSG);
+  // read one character from the I2C
 
-  if (incomingMSG == 0)
-  {
-    Serial.println("Turn OFF All Pomps");
-    for (int i = 0; i < sizeof(relaysFlags); i++)
-    {
-      digitalWrite(relays[i], HIGH);
-    }
-    for (int i = 0; i < sizeof(relaysFlags); i++)
-    {
-      digitalWrite(relays[i], LOW);
-    }
-    delay(1000);
-    for (int i = 0; i < sizeof(relaysFlags); i++)
-    {
-      stopWater(i);
-    }
-  } else
-  {
-    currentPump = incomingMSG.substring(0, 1).toInt();
-    activeTime = incomingMSG.substring(2).toFloat();
-    
+  if (toggle) {
+    incomingMSG = Wire.read();
+
+    currentPump = incomingMSG;
     waterFlower(currentPump);
     pumpTime[currentPump - 1] = activeTime;
-    pumpTimer[pumpNumber - 1] = millis();
+    pumpTimer[currentPump - 1] = millis();
+    toggle = !toggle;
+  } else
+  {
+    byte a, b;
+    int bigNum;
+
+    a = Wire.read();
+    b = Wire.read();
+
+    bigNum = a;
+    bigNum = (bigNum << 8) | b;
+    activeTime = bigNum;
+
+    toggle = !toggle;
+    Serial.println(activeTime);
   }
 }
 
@@ -130,9 +131,6 @@ void stopWater(int pumpNumber) {
     delay(50);
   }
 }
-
-unsigned long pumpTimer[4] = {0, 0, 0, 0};
-float pumpTime[4] = {0, 0, 0, 0};
 
 void HandlePumpTimer(int pumpNumber)
 {
