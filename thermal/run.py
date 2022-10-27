@@ -13,6 +13,7 @@
 
 from uvctypes import *
 import cv2
+import random
 import time
 import math
 import os
@@ -369,7 +370,58 @@ def main():
                     # ==== Load ML model and perform inference ==== #
                     # (make sure image is resized/cropped correctly for the model, e.g. 224x224 for VGG16)
 
-                    ml_bundle_dict = {}  # for OSC bundle for ml response
+                    # ml_bundle_dict = {}  # for OSC bundle for ml response
+
+                    ml_bundle_dict = {
+                        "cluster": {
+                            "address": OSC_ADDRESSES[9],
+                            "arguments": [
+                                [random.randint(1, 4), "i"],
+                                [random.random(), "f"],
+                            ],
+                        },
+                        "buffers": {
+                            "address": OSC_ADDRESSES[1],
+                            "arguments": [
+                                [random.randint(1, 17), "i"],
+                                [random.randint(1, 17), "i"],
+                            ],
+                        },
+                        "pitch": {
+                            "address": OSC_ADDRESSES[2],
+                            "arguments": [[random.random(), "f"]],
+                        },
+                        "xpos": {
+                            "address": OSC_ADDRESSES[3],
+                            "arguments": [[random.random(), "f"], [random.random(), "f"]],
+                        },
+                        "ypos": {
+                            "address": OSC_ADDRESSES[4],
+                            "arguments": [[random.random(), "f"], [random.random(), "f"]],
+                        },
+                        "chopper": {
+                            "address": OSC_ADDRESSES[5],
+                            "arguments": [[random.random(), "f"], [random.random(), "f"]],
+                        },
+                        "water": {
+                            "address": OSC_ADDRESSES[6],
+                            "arguments": [
+                                [random.random(), "f"],
+                            ],
+                        },
+                        "peg": {
+                            "address": OSC_ADDRESSES[7],
+                            "arguments": [
+                                [random.random(), "f"],
+                            ],
+                        },
+                        "aba": {
+                            "address": OSC_ADDRESSES[9],
+                            "arguments": [[random.random(), "f"]],
+                        },
+                    }
+
+                    sendResponses(ml_bundle_dict)
 
                     # ==== Perform contour detection & analysis ==== #
                     # blur & threshold

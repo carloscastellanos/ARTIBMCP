@@ -14,6 +14,7 @@
 
 # -*- coding: utf-8 -*-
 import argparse
+import random
 import sys
 import os
 import time
@@ -248,8 +249,60 @@ def main():
                 # (make sure image is resized/cropped correctly for the model, e.g. 224x224 for VGG16)
 
                 # then generate a response
-                ml_bundle_dict = {}  # for OSC bundle for ml response
+                # ml_bundle_dict = {}  # for OSC bundle for ml response
 
+                ml_bundle_dict = {
+                    "cluster": {
+                        "address": OSC_ADDRESSES[10],
+                        "arguments": [
+                            [random.randint(1, 4), "i"],
+                            [random.random(), "f"],
+                        ],
+                    },
+                    "buffers": {
+                        "address": OSC_ADDRESSES[2],
+                        "arguments": [
+                            [random.randint(1, 17), "i"],
+                            [random.randint(1, 17), "i"],
+                        ],
+                    },
+                    "pitch": {
+                        "address": OSC_ADDRESSES[3],
+                        "arguments": [[random.random(), "f"]],
+                    },
+                    "xpos": {
+                        "address": OSC_ADDRESSES[4],
+                        "arguments": [[random.random(), "f"], [random.random(), "f"]],
+                    },
+                    "ypos": {
+                        "address": OSC_ADDRESSES[5],
+                        "arguments": [[random.random(), "f"], [random.random(), "f"]],
+                    },
+                    "chopper": {
+                        "address": OSC_ADDRESSES[6],
+                        "arguments": [[random.random(), "f"], [random.random(), "f"]],
+                    },
+                    "water": {
+                        "address": OSC_ADDRESSES[7],
+                        "arguments": [
+                            [random.random(), "f"],
+                            [random.randint(0, 3), "i"],
+                        ],
+                    },
+                    "peg": {
+                        "address": OSC_ADDRESSES[8],
+                        "arguments": [
+                            [random.random(), "f"],
+                            [random.randint(0, 3), "i"],
+                        ],
+                    },
+                    "aba": {
+                        "address": OSC_ADDRESSES[9],
+                        "arguments": [[random.random(), "f"]],
+                    },
+                }
+
+                sendResponses(ml_bundle_dict)
                 # ==== Perform contour detection & analysis ==== #
                 # resize image for Syphon
                 imgLuciferaseCV = cv2.resize(
