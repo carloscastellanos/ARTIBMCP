@@ -9615,7 +9615,7 @@
 					"patching_rect" : [ 677.0, 272.0, 134.0, 21.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 1134.5, 172.0, 142.0, 21.0 ],
-					"text" : "22.72 HORAS",
+					"text" : "52.25 HORAS",
 					"textcolor" : [ 0.699999988079071, 0.699999988079071, 0.699999988079071, 1.0 ],
 					"varname" : "hours"
 				}
@@ -9645,7 +9645,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 605.092345999999907, 158.5, 185.0, 22.0 ],
-					"text" : "22.717365"
+					"text" : "52.246919"
 				}
 
 			}
@@ -15035,7 +15035,7 @@
 										}
 ,
 										"classnamespace" : "box",
-										"rect" : [ 1572.0, 877.0, 1286.0, 781.0 ],
+										"rect" : [ 424.0, 350.0, 1286.0, 781.0 ],
 										"bglocked" : 0,
 										"openinpresentation" : 0,
 										"default_fontsize" : 12.0,
@@ -15094,8 +15094,8 @@
 													"numinlets" : 6,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 642.5, 394.0, 133.0, 22.0 ],
-													"text" : "scale 0. 450 2000. 100."
+													"patching_rect" : [ 642.5, 394.0, 123.0, 22.0 ],
+													"text" : "scale 0. 1. 2000. 100."
 												}
 
 											}
