@@ -13,15 +13,15 @@ void setup() {
   Serial.println("MEGA IS READY...");
 }
 void loop() {
-  Wire.beginTransmission(slaveAddress[1]); // transmit to device #9
-  Wire.write(x);
-  Wire.endTransmission();    // stop transmitting
+  //  Wire.beginTransmission(slaveAddress[1]); // transmit to device #9
+  //  Wire.write(x);
+  //  Wire.endTransmission();    // stop transmitting
   x++; // Increment x
   if (x > 5) x = 0; // `reset x once it gets 6
   delay(500);
 
-  RequestInfo(slaveAddress[0]);
-  RequestInfo(slaveAddress[1]);
+  //RequestInfo(slaveAddress[0]);
+  //RequestInfo(slaveAddress[1]);
   Serial.println("*************************");
 
   delay(READ_CYCLE_DELAY);
