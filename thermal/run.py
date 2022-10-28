@@ -362,6 +362,10 @@ def main():
                             prevTime = currTime
                             print("capturing image...")
                             cv2.imwrite(os.path.join(output_dir, "{:s}.jpg".format(timestr)), img)
+                            # send dummy OSC Message
+                            msg1 = osc_message_builder.OscMessageBuilder(address="/thermal")
+                            msg1.add_arg(1, arg_type="i")
+                            oscClient.send(msg1.build())
                         # time.sleep(900)  # 900 = 15 mins
 
                     # display_temperature_c(img, min_c, minLoc, (255, 0, 0))
@@ -492,10 +496,6 @@ def main():
                     # if args.bundle:
                     #     sendContours(contours_bundle)
 
-                    # send dummy OSC Message
-                    msg1 = osc_message_builder.OscMessageBuilder(address="/dummy")
-                    msg1.add_arg(1, arg_type="i")
-                    oscClient.send(msg1.build())
 
                     # cv2.imshow('Lepton Radiometry', img)  # show thermal image
                     # draw frame using opengl and send it to Syphon so Max can grab it
