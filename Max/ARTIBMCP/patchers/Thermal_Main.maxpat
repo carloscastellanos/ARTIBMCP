@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 162.0, 97.0, 1598.0, 959.0 ],
+		"rect" : [ 161.0, 121.0, 1598.0, 959.0 ],
 		"bglocked" : 1,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -2339,8 +2339,8 @@
 									"patching_rect" : [ 15.0, 18.0, 56.0, 22.0 ],
 									"restore" : 									{
 										"aba_accum" : [ 0.0 ],
-										"peg_accum" : [ 0.0 ],
-										"water_accum" : [ 0.0 ]
+										"peg_accum" : [ 10.2256 ],
+										"water_accum" : [ 77.524000000000001 ]
 									}
 ,
 									"text" : "autopattr",
@@ -7245,7 +7245,7 @@
 					"patching_rect" : [ 1446.092345999999907, 754.0, 167.0, 21.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 1054.5, 214.0, 142.0, 21.0 ],
-					"text" : "0.00 mL",
+					"text" : "77.52 mL",
 					"textcolor" : [ 0.699999988079071, 0.699999988079071, 0.699999988079071, 1.0 ],
 					"varname" : "water"
 				}
@@ -10479,6 +10479,18 @@
 						"assistshowspatchername" : 0,
 						"boxes" : [ 							{
 								"box" : 								{
+									"id" : "obj-36",
+									"maxclass" : "button",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "bang" ],
+									"parameter_enable" : 0,
+									"patching_rect" : [ 92.0, 360.133362000000034, 24.0, 24.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
 									"id" : "obj-84",
 									"maxclass" : "newobj",
 									"numinlets" : 2,
@@ -11541,7 +11553,14 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-24", 0 ],
+									"destination" : [ "obj-40", 0 ],
+									"source" : [ "obj-36", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-32", 0 ],
 									"source" : [ "obj-37", 0 ]
 								}
 
@@ -11710,7 +11729,7 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-24", 3 ],
+									"destination" : [ "obj-34", 0 ],
 									"source" : [ "obj-53", 0 ]
 								}
 
@@ -11865,7 +11884,7 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-24", 4 ],
+									"destination" : [ "obj-35", 0 ],
 									"source" : [ "obj-63", 0 ]
 								}
 
@@ -11886,7 +11905,7 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-24", 5 ],
+									"destination" : [ "obj-33", 0 ],
 									"source" : [ "obj-66", 0 ]
 								}
 
@@ -11921,14 +11940,14 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-24", 2 ],
+									"destination" : [ "obj-30", 0 ],
 									"source" : [ "obj-76", 0 ]
 								}
 
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-24", 1 ],
+									"destination" : [ "obj-31", 0 ],
 									"source" : [ "obj-77", 0 ]
 								}
 
@@ -12514,7 +12533,7 @@
 					"patching_rect" : [ 1621.0, 754.0, 167.0, 21.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 1054.5, 193.0, 142.0, 21.0 ],
-					"text" : "0.00 mL",
+					"text" : "10.23 mL",
 					"textcolor" : [ 0.699999988079071, 0.699999988079071, 0.699999988079071, 1.0 ],
 					"varname" : "peg"
 				}
@@ -12661,7 +12680,7 @@
 					"patching_rect" : [ 640.5, 269.5, 165.0, 21.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 1054.5, 172.0, 142.0, 21.0 ],
-					"text" : "79.40 HORAS",
+					"text" : "80.39 HORAS",
 					"textcolor" : [ 0.699999988079071, 0.699999988079071, 0.699999988079071, 1.0 ],
 					"varname" : "hours"
 				}
@@ -12715,7 +12734,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 608.5, 153.374755999999991, 185.0, 22.0 ],
-					"text" : "79.402806"
+					"text" : "80.39397"
 				}
 
 			}
@@ -15331,7 +15350,7 @@
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
 													"patching_rect" : [ 44.0, 182.0, 174.25, 23.0 ],
-													"text" : "set gfp.2"
+													"text" : "set thermal.16"
 												}
 
 											}
@@ -18517,7 +18536,7 @@
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
 													"patching_rect" : [ 47.125, 164.5, 174.25, 23.0 ],
-													"text" : "set gfp.13"
+													"text" : "set thermal.5"
 												}
 
 											}
@@ -28133,7 +28152,7 @@
 					"patching_rect" : [ 358.5, 554.5, 208.0, 49.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 1234.25, 519.0, 110.75, 49.0 ],
-					"text" : "-99.99",
+					"text" : "-86.25",
 					"textcolor" : [ 0.697254300117493, 0.698039215686274, 0.697254300117493, 1.0 ],
 					"textjustification" : 2,
 					"varname" : "sound_amplitude_readout"
