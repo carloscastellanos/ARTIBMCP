@@ -425,9 +425,9 @@ def main():
 
                     # ==== Perform contour detection & analysis ==== #
                     # blur & threshold
-                    imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-                    imgBlur = cv2.medianBlur(imgGray, 5)
-                    ret, thresh = cv2.threshold(imgBlur, int(args.threshold), 255, cv2.THRESH_BINARY)
+                    #imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+                    #imgBlur = cv2.medianBlur(imgGray, 5)
+                    #ret, thresh = cv2.threshold(imgBlur, int(args.threshold), 255, cv2.THRESH_BINARY)
 
                     # # find Contours
                     # print("contour detection...")
