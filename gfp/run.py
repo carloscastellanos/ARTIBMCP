@@ -303,6 +303,8 @@ def main():
                     },
                 }
 
+                sendResponses(ml_bundle_dict)
+                
                 # ==== Perform contour detection & analysis ==== #
                 # resize image for Syphon
                 imgGFPCV = cv2.resize(
