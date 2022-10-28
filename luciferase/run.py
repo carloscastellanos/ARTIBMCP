@@ -250,63 +250,64 @@ def main():
 
                 # then generate a response
                 # ml_bundle_dict = {}  # for OSC bundle for ml response
-
-                ml_bundle_dict = {
-                    "cluster": {
-                        "address": OSC_ADDRESSES[10],
-                        "arguments": [
-                            [random.randint(1, 4), "i"],
-                            [random.random(), "f"],
-                        ],
-                    },
-                    "buffers": {
-                        "address": OSC_ADDRESSES[2],
-                        "arguments": [
-                            [random.randint(1, 17), "i"],
-                            [random.randint(1, 17), "i"],
-                        ],
-                    },
-                    "pitch": {
-                        "address": OSC_ADDRESSES[3],
-                        "arguments": [[random.random(), "f"]],
-                    },
-                    "xpos": {
-                        "address": OSC_ADDRESSES[4],
-                        "arguments": [[random.random(), "f"], [random.random(), "f"]],
-                    },
-                    "ypos": {
-                        "address": OSC_ADDRESSES[5],
-                        "arguments": [[random.random(), "f"], [random.random(), "f"]],
-                    },
-                    "chopper": {
-                        "address": OSC_ADDRESSES[6],
-                        "arguments": [[random.random(), "f"], [random.random(), "f"]],
-                    },
-                    "water": {
-                        "address": OSC_ADDRESSES[7],
-                        "arguments": [
-                            [random.random(), "f"],
-                            [random.randint(0, 3), "i"],
-                        ],
-                    },
-                    "peg": {
-                        "address": OSC_ADDRESSES[8],
-                        "arguments": [
-                            [random.random(), "f"],
-                            [random.randint(0, 3), "i"],
-                        ],
-                    },
-                    "aba": {
-                        "address": OSC_ADDRESSES[9],
-                        "arguments": [[random.random(), "f"]],
-                    },
-                }
-
-                sendResponses(ml_bundle_dict)
+                #
+                # ml_bundle_dict = {
+                #     "cluster": {
+                #         "address": OSC_ADDRESSES[10],
+                #         "arguments": [
+                #             [random.randint(1, 4), "i"],
+                #             [random.random(), "f"],
+                #         ],
+                #     },
+                #     "buffers": {
+                #         "address": OSC_ADDRESSES[2],
+                #         "arguments": [
+                #             [random.randint(1, 17), "i"],
+                #             [random.randint(1, 17), "i"],
+                #         ],
+                #     },
+                #     "pitch": {
+                #         "address": OSC_ADDRESSES[3],
+                #         "arguments": [[random.random(), "f"]],
+                #     },
+                #     "xpos": {
+                #         "address": OSC_ADDRESSES[4],
+                #         "arguments": [[random.random(), "f"], [random.random(), "f"]],
+                #     },
+                #     "ypos": {
+                #         "address": OSC_ADDRESSES[5],
+                #         "arguments": [[random.random(), "f"], [random.random(), "f"]],
+                #     },
+                #     "chopper": {
+                #         "address": OSC_ADDRESSES[6],
+                #         "arguments": [[random.random(), "f"], [random.random(), "f"]],
+                #     },
+                #     "water": {
+                #         "address": OSC_ADDRESSES[7],
+                #         "arguments": [
+                #             [random.random(), "f"],
+                #             [random.randint(0, 3), "i"],
+                #         ],
+                #     },
+                #     "peg": {
+                #         "address": OSC_ADDRESSES[8],
+                #         "arguments": [
+                #             [random.random(), "f"],
+                #             [random.randint(0, 3), "i"],
+                #         ],
+                #     },
+                #     "aba": {
+                #         "address": OSC_ADDRESSES[9],
+                #         "arguments": [[random.random(), "f"]],
+                #     },
+                # }
+                #
+                # sendResponses(ml_bundle_dict)
                 # ==== Perform contour detection & analysis ==== #
                 # resize image for Syphon
+                imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
                 imgLuciferaseCV = cv2.resize(
-                    img, DIMENSIONS_CV, interpolation=cv2.INTER_AREA
+                    imgGray, DIMENSIONS_CV, interpolation=cv2.INTER_AREA
                 )
                 # blur & threshold
                 imgBlur = cv2.medianBlur(imgLuciferaseCV, 5)
@@ -314,77 +315,79 @@ def main():
                     imgBlur, int(args.threshold), 255, cv2.THRESH_BINARY
                 )
 
+                print("contour detection...")
                 # find Contours
-                contours, hierarchy = cv2.findContours(
-                    thresh.copy(), cv2.RETR_CCOMP, cv2.CHAIN_APPROX_SIMPLE
-                )
-
-                out = np.zeros_like(thresh)
-
-                contours_bundle = []  # for OSC bundle for contour data
-
-                # draw the contours
-                for i in range(len(contours)):
-                    # -1 in 4th column means it's an external contour
-                    if hierarchy[0][i][3] == -1:
-                        perimeter = cv2.arcLength(contours[i], True)
-                        area = cv2.contourArea(contours[i])
-                        circularity = 4 * math.pi * (area / (perimeter * perimeter))
-                        hull = cv2.convexHull(contours[i], False)
-                        hullArea = cv2.contourArea(hull)
-                        solidity = area / hullArea
-                        if args.bundle:
-                            contours_bundle.append(
-                                [
-                                    OSC_ADDRESSES[0],
-                                    i,
-                                    perimeter,
-                                    area,
-                                    circularity,
-                                    solidity,
-                                ]
-                            )
-                        else:
-                            sendContour(
-                                i,
-                                perimeter,
-                                area,
-                                circularity,
-                                solidity,
-                                OSC_ADDRESSES[0],
-                            )
-                        x, y, w, h = cv2.boundingRect(contours[i])
-                        cv2.drawContours(out, contours, i, (204, 204, 204), 3)
-                        cv2.putText(
-                            out,
-                            str(i),
-                            (x, y - 1),
-                            cv2.FONT_HERSHEY_PLAIN,
-                            1,
-                            (255, 255, 0),
-                            1,
-                        )
-                        print("contour " + str(i) + ":")
-                        print("  permimeter:" + str(perimeter))
-                        print("  area:" + str(area))
-                        print("  circularity:" + str(circularity))
-                        print("  solidity:" + str(solidity))
-                        print(" ")
-                        print("---------------------------------")
-                        print(" ")
-
-                if args.bundle:
-                    sendContours(contours_bundle)
+                # contours, hierarchy = cv2.findContours(
+                #     thresh.copy(), cv2.RETR_CCOMP, cv2.CHAIN_APPROX_SIMPLE
+                # )
+                #
+                # out = np.zeros_like(thresh)
+                #
+                # contours_bundle = []  # for OSC bundle for contour data
+                #
+                # # draw the contours
+                # for i in range(len(contours)):
+                #     # -1 in 4th column means it's an external contour
+                #     if hierarchy[0][i][3] == -1:
+                #         perimeter = cv2.arcLength(contours[i], True)
+                #         area = cv2.contourArea(contours[i])
+                #         circularity = 4 * math.pi * (area / (perimeter * perimeter))
+                #         hull = cv2.convexHull(contours[i], False)
+                #         hullArea = cv2.contourArea(hull)
+                #         solidity = area / hullArea
+                #         if args.bundle:
+                #             contours_bundle.append(
+                #                 [
+                #                     OSC_ADDRESSES[0],
+                #                     i,
+                #                     perimeter,
+                #                     area,
+                #                     circularity,
+                #                     solidity,
+                #                 ]
+                #             )
+                #         else:
+                #             sendContour(
+                #                 i,
+                #                 perimeter,
+                #                 area,
+                #                 circularity,
+                #                 solidity,
+                #                 OSC_ADDRESSES[0],
+                #             )
+                #         x, y, w, h = cv2.boundingRect(contours[i])
+                #         cv2.drawContours(out, contours, i, (204, 204, 204), 3)
+                #         cv2.putText(
+                #             out,
+                #             str(i),
+                #             (x, y - 1),
+                #             cv2.FONT_HERSHEY_PLAIN,
+                #             1,
+                #             (255, 255, 0),
+                #             1,
+                #         )
+                #         print("contour " + str(i) + ":")
+                #         print("  permimeter:" + str(perimeter))
+                #         print("  area:" + str(area))
+                #         print("  circularity:" + str(circularity))
+                #         print("  solidity:" + str(solidity))
+                #         print(" ")
+                #         print("---------------------------------")
+                #         print(" ")
+                #
+                # if args.bundle:
+                #     sendContours(contours_bundle)
 
                 # ==== Perform color analysis, look amount of green in image ==== #
                 # send data via OSC
+                print("getting green")
                 sendLuminosity(getGreenPercentage(img), OSC_ADDRESSES[1])
 
-                cv2.imshow("Camera image", img)  # show image
+                # cv2.imshow("Camera image", img)  # show image
                 # draw frame using opengl and send it to Syphon so Max can grab it
                 syphon_luciferase_server.draw_and_send(imgLuciferaseCvt)
-                out2 = cv2.cvtColor(out, cv2.COLOR_GRAY2RGB)
-                syphon_luciferasecv_server.draw_and_send(out2)
+                # out2 = cv2.cvtColor(out, cv2.COLOR_GRAY2RGB)
+                # syphon_luciferasecv_server.draw_and_send(out2)
 
             key = cv2.waitKey(1) & 0xFF
             if key == 27:

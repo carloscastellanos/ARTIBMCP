@@ -372,131 +372,138 @@ def main():
 
                     # ml_bundle_dict = {}  # for OSC bundle for ml response
 
-                    ml_bundle_dict = {
-                        "cluster": {
-                            "address": OSC_ADDRESSES[9],
-                            "arguments": [
-                                [random.randint(1, 4), "i"],
-                                [random.random(), "f"],
-                            ],
-                        },
-                        "buffers": {
-                            "address": OSC_ADDRESSES[1],
-                            "arguments": [
-                                [random.randint(1, 17), "i"],
-                                [random.randint(1, 17), "i"],
-                            ],
-                        },
-                        "pitch": {
-                            "address": OSC_ADDRESSES[2],
-                            "arguments": [[random.random(), "f"]],
-                        },
-                        "xpos": {
-                            "address": OSC_ADDRESSES[3],
-                            "arguments": [[random.random(), "f"], [random.random(), "f"]],
-                        },
-                        "ypos": {
-                            "address": OSC_ADDRESSES[4],
-                            "arguments": [[random.random(), "f"], [random.random(), "f"]],
-                        },
-                        "chopper": {
-                            "address": OSC_ADDRESSES[5],
-                            "arguments": [[random.random(), "f"], [random.random(), "f"]],
-                        },
-                        "water": {
-                            "address": OSC_ADDRESSES[6],
-                            "arguments": [
-                                [random.random(), "f"],
-                            ],
-                        },
-                        "peg": {
-                            "address": OSC_ADDRESSES[7],
-                            "arguments": [
-                                [random.random(), "f"],
-                            ],
-                        },
-                        "aba": {
-                            "address": OSC_ADDRESSES[9],
-                            "arguments": [[random.random(), "f"]],
-                        },
-                    }
-
-                    sendResponses(ml_bundle_dict)
+                    # ml_bundle_dict = {
+                    #     "cluster": {
+                    #         "address": OSC_ADDRESSES[9],
+                    #         "arguments": [
+                    #             [random.randint(1, 4), "i"],
+                    #             [random.random(), "f"],
+                    #         ],
+                    #     },
+                    #     "buffers": {
+                    #         "address": OSC_ADDRESSES[1],
+                    #         "arguments": [
+                    #             [random.randint(1, 17), "i"],
+                    #             [random.randint(1, 17), "i"],
+                    #         ],
+                    #     },
+                    #     "pitch": {
+                    #         "address": OSC_ADDRESSES[2],
+                    #         "arguments": [[random.random(), "f"]],
+                    #     },
+                    #     "xpos": {
+                    #         "address": OSC_ADDRESSES[3],
+                    #         "arguments": [[random.random(), "f"], [random.random(), "f"]],
+                    #     },
+                    #     "ypos": {
+                    #         "address": OSC_ADDRESSES[4],
+                    #         "arguments": [[random.random(), "f"], [random.random(), "f"]],
+                    #     },
+                    #     "chopper": {
+                    #         "address": OSC_ADDRESSES[5],
+                    #         "arguments": [[random.random(), "f"], [random.random(), "f"]],
+                    #     },
+                    #     "water": {
+                    #         "address": OSC_ADDRESSES[6],
+                    #         "arguments": [
+                    #             [random.random(), "f"],
+                    #         ],
+                    #     },
+                    #     "peg": {
+                    #         "address": OSC_ADDRESSES[7],
+                    #         "arguments": [
+                    #             [random.random(), "f"],
+                    #         ],
+                    #     },
+                    #     "aba": {
+                    #         "address": OSC_ADDRESSES[9],
+                    #         "arguments": [[random.random(), "f"]],
+                    #     },
+                    # }
+                    #
+                    # sendResponses(ml_bundle_dict)
 
                     # ==== Perform contour detection & analysis ==== #
                     # blur & threshold
-                    imgBlur = cv2.medianBlur(img, 5)
+                    imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+                    imgBlur = cv2.medianBlur(imgGray, 5)
                     ret, thresh = cv2.threshold(imgBlur, int(args.threshold), 255, cv2.THRESH_BINARY)
 
-                    # find Contours
-                    contours, hierarchy = cv2.findContours(
-                        thresh.copy(), cv2.RETR_CCOMP, cv2.CHAIN_APPROX_SIMPLE
-                    )
+                    # # find Contours
+                    # print("contour detection...")
+                    # contours, hierarchy = cv2.findContours(
+                    #     thresh.copy(), cv2.RETR_CCOMP, cv2.CHAIN_APPROX_SIMPLE
+                    # )
+                    #
+                    # out = np.zeros_like(thresh)
+                    #
+                    # contours_bundle = []  # for OSC bundle for contour data
+                    #
+                    # # draw the contours
+                    # for i in range(len(contours)):
+                    #     # -1 in 4th column means it's an external contour
+                    #     if hierarchy[0][i][3] == -1:
+                    #         perimeter = cv2.arcLength(contours[i], True)
+                    #         area = cv2.contourArea(contours[i])
+                    #         circularity = 4 * math.pi * (area / (perimeter * perimeter))
+                    #         hull = cv2.convexHull(contours[i], False)
+                    #         hullArea = cv2.contourArea(hull)
+                    #         solidity = area / hullArea
+                    #         if args.bundle:
+                    #             contours_bundle.append(
+                    #                 [
+                    #                     OSC_ADDRESSES[0],
+                    #                     i,
+                    #                     perimeter,
+                    #                     area,
+                    #                     circularity,
+                    #                     solidity,
+                    #                 ]
+                    #             )
+                    #         else:
+                    #             sendContour(
+                    #                 i,
+                    #                 perimeter,
+                    #                 area,
+                    #                 circularity,
+                    #                 solidity,
+                    #                 OSC_ADDRESSES[0],
+                    #             )
+                    #         x, y, w, h = cv2.boundingRect(contours[i])
+                    #         cv2.drawContours(out, contours, i, (204, 204, 204), 3)
+                    #         cv2.putText(
+                    #             out,
+                    #             str(i),
+                    #             (x, y - 1),
+                    #             cv2.FONT_HERSHEY_PLAIN,
+                    #             1,
+                    #             (255, 255, 0),
+                    #             1,
+                    #         )
+                    #         print("contour " + str(i) + ":")
+                    #         print("  permimeter:" + str(perimeter))
+                    #         print("  area:" + str(area))
+                    #         print("  circularity:" + str(circularity))
+                    #         print("  solidity:" + str(solidity))
+                    #         print(" ")
+                    #         print("---------------------------------")
+                    #         print(" ")
+                    #
+                    # if args.bundle:
+                    #     sendContours(contours_bundle)
 
-                    out = np.zeros_like(thresh)
+                    # send dummy OSC Message
+                    msg1 = osc_message_builder.OscMessageBuilder(address="/dummy")
+                    msg1.add_arg(1, arg_type="i")
+                    oscClient.send(msg1.build())
 
-                    contours_bundle = []  # for OSC bundle for contour data
-
-                    # draw the contours
-                    for i in range(len(contours)):
-                        # -1 in 4th column means it's an external contour
-                        if hierarchy[0][i][3] == -1:
-                            perimeter = cv2.arcLength(contours[i], True)
-                            area = cv2.contourArea(contours[i])
-                            circularity = 4 * math.pi * (area / (perimeter * perimeter))
-                            hull = cv2.convexHull(contours[i], False)
-                            hullArea = cv2.contourArea(hull)
-                            solidity = area / hullArea
-                            if args.bundle:
-                                contours_bundle.append(
-                                    [
-                                        OSC_ADDRESSES[0],
-                                        i,
-                                        perimeter,
-                                        area,
-                                        circularity,
-                                        solidity,
-                                    ]
-                                )
-                            else:
-                                sendContour(
-                                    i,
-                                    perimeter,
-                                    area,
-                                    circularity,
-                                    solidity,
-                                    OSC_ADDRESSES[0],
-                                )
-                            x, y, w, h = cv2.boundingRect(contours[i])
-                            cv2.drawContours(out, contours, i, (204, 204, 204), 3)
-                            cv2.putText(
-                                out,
-                                str(i),
-                                (x, y - 1),
-                                cv2.FONT_HERSHEY_PLAIN,
-                                1,
-                                (255, 255, 0),
-                                1,
-                            )
-                            print("contour " + str(i) + ":")
-                            print("  permimeter:" + str(perimeter))
-                            print("  area:" + str(area))
-                            print("  circularity:" + str(circularity))
-                            print("  solidity:" + str(solidity))
-                            print(" ")
-                            print("---------------------------------")
-                            print(" ")
-
-                    if args.bundle:
-                        sendContours(contours_bundle)
-
-                    cv2.imshow('Lepton Radiometry', img)  # show thermal image
+                    # cv2.imshow('Lepton Radiometry', img)  # show thermal image
                     # draw frame using opengl and send it to Syphon so Max can grab it
                     img_color = cv2.LUT(img, color_map)  # send color image to Syphon/Max
                     img_color_fix = cv2.cvtColor(img_color, cv2.COLOR_RGB2BGR)
                     syphon_thermal_server.draw_and_send(img_color_fix)
-                    out2 = cv2.cvtColor(out, cv2.COLOR_GRAY2RGB)
-                    syphon_thermalcv_server.draw_and_send(out2)
+                    # out2 = cv2.cvtColor(out, cv2.COLOR_GRAY2RGB)
+                    # syphon_thermalcv_server.draw_and_send(out2)
 
                     key = cv2.waitKey(50) & 0xFF
                     if key == 27:
