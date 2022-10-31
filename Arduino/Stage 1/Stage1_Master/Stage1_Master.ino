@@ -19,6 +19,10 @@
         Disable all -> m 0.0 0
         Enable all  -> m 0.0 1
 
+      GrowLights:
+        Disable all -> l 0
+        Enable all  -> l 1
+
       ------------------------ Retreive Info
 
       Full Message Example: m 55.8 t 21.4 l 1
@@ -46,18 +50,17 @@
 // Slave with Peg Pumps = 9
 const int slaveAddress[] = {8, 9};
 
-const byte mistPins[] = {4, 5};
-#define THERMISTORPIN A3
-const byte growLights_PIN[] = {10, 11};
-const byte heatingPads_PIN[] = {12, 13};
+const byte mistPins[] = {8, 9, 10, 11};
+#define THERMISTORPIN A12
+const byte growLights_PIN[] = {12, 13};
+const byte heatingPads_PIN[] = {4, 5};
 
 // Commands to trigger actions
 const char water = 'w';
 const char peg = 'p';
 const char mist = 'm';
-const char heatingPads = 'c';  // ?????
+const char heatingPads = 't';  // ?????
 
-// Commands to read values
 const char humidity = 'h';
 const char temperature = 't';
 const char growLights = 'l';
@@ -76,12 +79,12 @@ void setup() {
 }
 
 void loop() {
+  HandleSerialCOM();
   HandleMistMakers();
   HandleHumidity();
   HandleTemperature();
   HandleGrowLights();
   HandleHeatingPads();
-  HandleSerialCOM();
 }
 
 /*
@@ -126,7 +129,7 @@ void HandleMistMakers()
 
 float humidityTimer;
 int humidityfrequency = 5000;
-float humidity_values[4] = {0, 0, 0, 0};
+float humidity_values[4] = {0.3, 0.43, 0.5, 0};
 float humidity_mean = 0;
 
 void InitializeHumidityHandler()
@@ -139,7 +142,7 @@ void HandleHumidity()
   if (millis() - humidityTimer >= humidityfrequency)
   {
     humidityTimer = millis();
-    RequestInfo(slaveAddress[1]);
+    //RequestInfo(slaveAddress[1]);
     humidity_mean = humidity_values[0] + humidity_values[1] + humidity_values[2] + humidity_values[3];
     humidity_mean = humidity_mean / sizeof(humidity_values);
   }
@@ -179,7 +182,7 @@ void HandleGrowLights()
 {
   for (int i = 0; i < sizeof(growLights_PIN); i++)
   {
-    digitalWrite(growLights_PIN[i], growLights_state ? HIGH : LOW);
+    digitalWrite(growLights_PIN[i], growLights_state ? LOW : HIGH);
   }
 }
 
@@ -210,7 +213,7 @@ void HandleHeatingPads()
       - Send Command to target pump
       - Retrieve Humidity Information
 */
-#define BUFFER_SIZE 4
+#define BUFFER_SIZE 8
 byte buffer[BUFFER_SIZE];
 
 String msg;
@@ -232,7 +235,7 @@ void HandleSerialCOM()
 
       if (msgType == water)
       {
-        msgMagnitude = msg.substring(3, msg.length() - 2).toFloat();
+        msgMagnitude = msg.substring(2, msg.length() - 2).toFloat();
         msgValue = msg.substring(msg.length() - 2).toInt();
 
         SendCommand(slaveAddress[0], msgValue + 1, msgMagnitude);
@@ -240,7 +243,7 @@ void HandleSerialCOM()
 
       if (msgType == peg)
       {
-        msgMagnitude = msg.substring(3, msg.length() - 2).toFloat();
+        msgMagnitude = msg.substring(2, msg.length() - 2).toFloat();
         msgValue = msg.substring(msg.length() - 2).toInt();
 
         SendCommand(slaveAddress[1], msgValue + 1, msgMagnitude);
@@ -252,8 +255,20 @@ void HandleSerialCOM()
         mistTime = msgMagnitude;
         mistTimer = millis();
 
-        DOMist(msgValue);
+        DOMist(true);
         isMakingMist = true;
+      }
+
+      if (msgType == growLights)
+      {
+        msgValue = msg.substring(msg.length() - 2).toInt();
+        growLights_state = msgValue;
+      }
+
+      if (msgType == heatingPads)
+      {
+        msgValue = msg.substring(msg.length() - 2).toInt();
+        heatingPads_state = msgValue;
       }
 
       Serial.print(humidity);
@@ -270,15 +285,24 @@ void HandleSerialCOM()
   }
 }
 
-void SendCommand(int _slaveAddress, int targetPump, float _time)
+short data[BUFFER_SIZE];
+
+void SendCommand(int _slaveAddress, int targetPump, int _time)
 {
-  char _timeBuff[6];
-  dtostrf(_time, 1, 2, _timeBuff);
+  data[0] = targetPump;
+  data[1] = _time;
+
+  byte myArray[2];
+  myArray[0] = (_time >> 8) & 0xFF;
+  myArray[1] = _time & 0xFF;
+  Wire.beginTransmission(_slaveAddress);
+  Wire.write(myArray, 2);
+  Wire.endTransmission();
+  delay(50);
+  Serial.println(data[0]);
   Wire.beginTransmission(_slaveAddress);    // Transmit to slaveAddress
   Wire.write(targetPump);
-  Wire.write('&');
-  Wire.write(_timeBuff);
-  Wire.endTransmission();                   // Stop transmitting
+  Wire.endTransmission();
 }
 
 void RequestInfo(int slaveAdd) {
@@ -301,19 +325,31 @@ void RequestInfo(int slaveAdd) {
     // Parse the temperature
     short_cast.b[0] = buffer[0];
     short_cast.b[1] = buffer[1];
-    humidity_values[0] = ((float)(short_cast.val)) / 10;
+    float moisture1_value = ((float)(short_cast.val)) / 10;
 
     // Parse the moisture
     short_cast.b[0] = buffer[2];
     short_cast.b[1] = buffer[3];
-    humidity_values[1] = ((float)(short_cast.val)) / 10;
+    float moisture2_value = ((float)(short_cast.val)) / 10;
 
     short_cast.b[0] = buffer[4];
     short_cast.b[1] = buffer[5];
-    humidity_values[2] = short_cast.val;
+    short moisture3_value = short_cast.val;
 
     short_cast.b[0] = buffer[6];
     short_cast.b[1] = buffer[7];
-    humidity_values[3] = short_cast.val;
+    short moisture4_value = short_cast.val;
+
+    // Prints the income data
+    Serial.print("Slave address ");
+    Serial.print(slaveAdd);
+    Serial.print(": moisture1 = ");
+    Serial.print(moisture1_value);
+    Serial.print(": moisture2 = ");
+    Serial.print(moisture3_value);
+    Serial.print(": moisture3 = ");
+    Serial.print(moisture3_value);
+    Serial.print(": moisture4 = ");
+    Serial.println(moisture4_value);
   }
 }
