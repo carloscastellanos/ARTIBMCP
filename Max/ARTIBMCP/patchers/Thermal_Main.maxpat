@@ -58,7 +58,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "int" ],
 					"patching_rect" : [ 457.5, 58.5, 73.0, 22.0 ],
-					"text" : "random 300"
+					"text" : "random 200"
 				}
 
 			}
@@ -12680,7 +12680,7 @@
 					"patching_rect" : [ 640.5, 269.5, 165.0, 21.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 1054.5, 172.0, 142.0, 21.0 ],
-					"text" : "80.39 HORAS",
+					"text" : "124.58 HORAS",
 					"textcolor" : [ 0.699999988079071, 0.699999988079071, 0.699999988079071, 1.0 ],
 					"varname" : "hours"
 				}
@@ -12734,7 +12734,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 608.5, 153.374755999999991, 185.0, 22.0 ],
-					"text" : "80.39397"
+					"text" : "124.581091"
 				}
 
 			}

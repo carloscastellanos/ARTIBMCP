@@ -58,7 +58,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "int" ],
 					"patching_rect" : [ 457.5, 58.5, 73.0, 22.0 ],
-					"text" : "random 300"
+					"text" : "random 200"
 				}
 
 			}
@@ -2253,9 +2253,9 @@
 									"outlettype" : [ "", "", "", "" ],
 									"patching_rect" : [ 19.0, 21.0, 56.0, 22.0 ],
 									"restore" : 									{
-										"aba_accum" : [ 0.0 ],
-										"peg_accum" : [ 0.29301 ],
-										"water_accum" : [ 0.25386 ]
+										"aba_accum" : [ 50.1248 ],
+										"peg_accum" : [ 1.72586 ],
+										"water_accum" : [ 1.39376 ]
 									}
 ,
 									"text" : "autopattr",
@@ -3691,7 +3691,7 @@
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
 													"patching_rect" : [ 63.5, 555.0, 231.0, 22.0 ],
-													"text" : "100 0 255"
+													"text" : "w 70.57 0"
 												}
 
 											}
@@ -4562,7 +4562,7 @@
 										}
 ,
 										"classnamespace" : "box",
-										"rect" : [ 176.0, 320.0, 1981.0, 774.0 ],
+										"rect" : [ 34.0, 320.0, 1981.0, 774.0 ],
 										"bglocked" : 0,
 										"openinpresentation" : 0,
 										"default_fontsize" : 12.0,
@@ -4670,7 +4670,7 @@
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
 													"patching_rect" : [ 1201.5, 419.0, 319.0, 22.0 ],
-													"text" : "append 20220913150719::peg::location 0"
+													"text" : "append 20221030123402::peg::location 0"
 												}
 
 											}
@@ -4706,7 +4706,7 @@
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
 													"patching_rect" : [ 429.0, 414.0, 319.0, 22.0 ],
-													"text" : "append 20220913150719::water::location 2"
+													"text" : "append 20221030123402::water::location 0"
 												}
 
 											}
@@ -4781,7 +4781,7 @@
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
 													"patching_rect" : [ 1598.5, 419.0, 319.0, 22.0 ],
-													"text" : "append 20220913150719::aba::amount 0.25"
+													"text" : "append 20221030123402::aba::amount 385080."
 												}
 
 											}
@@ -4793,7 +4793,7 @@
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
 													"patching_rect" : [ 820.5, 419.0, 319.0, 22.0 ],
-													"text" : "append 20220913150719::peg::amount 0.5"
+													"text" : "append 20221030123402::peg::amount 79.57"
 												}
 
 											}
@@ -4805,7 +4805,7 @@
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
 													"patching_rect" : [ 41.0, 414.0, 319.0, 22.0 ],
-													"text" : "append 20220913150719::water::amount 0.75"
+													"text" : "append 20221030123402::water::amount 70.57"
 												}
 
 											}
@@ -5023,6 +5023,396 @@
 , 											{
 												"box" : 												{
 													"data" : 													{
+														"20221030122244" : 														{
+															"aba" : 															{
+																"amount" : 479580.0
+															}
+,
+															"peg" : 															{
+																"location" : 0,
+																"amount" : 58.509999999999998
+															}
+,
+															"water" : 															{
+																"location" : 0,
+																"amount" : 34.93
+															}
+
+														}
+,
+														"20221030122254" : 														{
+															"aba" : 															{
+																"amount" : 273840.0
+															}
+,
+															"peg" : 															{
+																"location" : 0,
+																"amount" : 82.269999999999996
+															}
+,
+															"water" : 															{
+																"location" : 0,
+																"amount" : 70.120000000000005
+															}
+
+														}
+,
+														"20221030122304" : 														{
+															"aba" : 															{
+																"amount" : 576780.0
+															}
+,
+															"peg" : 															{
+																"location" : 0,
+																"amount" : 93.430000000000007
+															}
+,
+															"water" : 															{
+																"location" : 0,
+																"amount" : 44.289999999999999
+															}
+
+														}
+,
+														"20221030122314" : 														{
+															"aba" : 															{
+																"amount" : 207960.0
+															}
+,
+															"peg" : 															{
+																"location" : 0,
+																"amount" : 64.269999999999996
+															}
+,
+															"water" : 															{
+																"location" : 0,
+																"amount" : 34.119999999999997
+															}
+
+														}
+,
+														"20221030122324" : 														{
+															"aba" : 															{
+																"amount" : 130200.0
+															}
+,
+															"peg" : 															{
+																"location" : 0,
+																"amount" : 25.210000000000001
+															}
+,
+															"water" : 															{
+																"location" : 0,
+																"amount" : 88.840000000000003
+															}
+
+														}
+,
+														"20221030122334" : 														{
+															"aba" : 															{
+																"amount" : 197700.0
+															}
+,
+															"peg" : 															{
+																"location" : 0,
+																"amount" : 93.159999999999997
+															}
+,
+															"water" : 															{
+																"location" : 0,
+																"amount" : 13.69
+															}
+
+														}
+,
+														"20221030122344" : 														{
+															"aba" : 															{
+																"amount" : 274920.0
+															}
+,
+															"peg" : 															{
+																"location" : 0,
+																"amount" : 34.75
+															}
+,
+															"water" : 															{
+																"location" : 0,
+																"amount" : 39.789999999999999
+															}
+
+														}
+,
+														"20221030122354" : 														{
+															"aba" : 															{
+																"amount" : 521160.0
+															}
+,
+															"peg" : 															{
+																"location" : 0,
+																"amount" : 89.469999999999999
+															}
+,
+															"water" : 															{
+																"location" : 0,
+																"amount" : 32.229999999999997
+															}
+
+														}
+,
+														"20221030123109" : 														{
+															"aba" : 															{
+																"amount" : 433140.0
+															}
+,
+															"peg" : 															{
+																"location" : 0,
+																"amount" : 10.18
+															}
+,
+															"water" : 															{
+																"location" : 0,
+																"amount" : 52.659999999999997
+															}
+
+														}
+,
+														"20221030123119" : 														{
+															"aba" : 															{
+																"amount" : 567060.0
+															}
+,
+															"peg" : 															{
+																"location" : 0,
+																"amount" : 17.469999999999999
+															}
+,
+															"water" : 															{
+																"location" : 0,
+																"amount" : 16.93
+															}
+
+														}
+,
+														"20221030123129" : 														{
+															"aba" : 															{
+																"amount" : 241440.0
+															}
+,
+															"peg" : 															{
+																"location" : 0,
+																"amount" : 87.400000000000006
+															}
+,
+															"water" : 															{
+																"location" : 0,
+																"amount" : 15.31
+															}
+
+														}
+,
+														"20221030123139" : 														{
+															"aba" : 															{
+																"amount" : 89700.0
+															}
+,
+															"peg" : 															{
+																"location" : 0,
+																"amount" : 49.509999999999998
+															}
+,
+															"water" : 															{
+																"location" : 0,
+																"amount" : 62.109999999999999
+															}
+
+														}
+,
+														"20221030123149" : 														{
+															"aba" : 															{
+																"amount" : 441780.0
+															}
+,
+															"peg" : 															{
+																"location" : 0,
+																"amount" : 41.68
+															}
+,
+															"water" : 															{
+																"location" : 0,
+																"amount" : 56.350000000000001
+															}
+
+														}
+,
+														"20221030123232" : 														{
+															"aba" : 															{
+																"amount" : 407220.0
+															}
+,
+															"peg" : 															{
+																"location" : 0,
+																"amount" : 85.689999999999998
+															}
+,
+															"water" : 															{
+																"location" : 0,
+																"amount" : 32.950000000000003
+															}
+
+														}
+,
+														"20221030123242" : 														{
+															"aba" : 															{
+																"amount" : 258720.0
+															}
+,
+															"peg" : 															{
+																"location" : 0,
+																"amount" : 72.549999999999997
+															}
+,
+															"water" : 															{
+																"location" : 0,
+																"amount" : 97.840000000000003
+															}
+
+														}
+,
+														"20221030123252" : 														{
+															"aba" : 															{
+																"amount" : 122100.0
+															}
+,
+															"peg" : 															{
+																"location" : 0,
+																"amount" : 71.290000000000006
+															}
+,
+															"water" : 															{
+																"location" : 0,
+																"amount" : 31.420000000000002
+															}
+
+														}
+,
+														"20221030123302" : 														{
+															"aba" : 															{
+																"amount" : 309480.0
+															}
+,
+															"peg" : 															{
+																"location" : 0,
+																"amount" : 45.909999999999997
+															}
+,
+															"water" : 															{
+																"location" : 0,
+																"amount" : 40.509999999999998
+															}
+
+														}
+,
+														"20221030123312" : 														{
+															"aba" : 															{
+																"amount" : 214440.0
+															}
+,
+															"peg" : 															{
+																"location" : 0,
+																"amount" : 39.07
+															}
+,
+															"water" : 															{
+																"location" : 0,
+																"amount" : 19.359999999999999
+															}
+
+														}
+,
+														"20221030123322" : 														{
+															"aba" : 															{
+																"amount" : 164220.0
+															}
+,
+															"peg" : 															{
+																"location" : 0,
+																"amount" : 52.93
+															}
+,
+															"water" : 															{
+																"location" : 0,
+																"amount" : 19.989999999999998
+															}
+
+														}
+,
+														"20221030123332" : 														{
+															"aba" : 															{
+																"amount" : 221460.0
+															}
+,
+															"peg" : 															{
+																"location" : 0,
+																"amount" : 60.579999999999998
+															}
+,
+															"water" : 															{
+																"location" : 0,
+																"amount" : 84.790000000000006
+															}
+
+														}
+,
+														"20221030123342" : 														{
+															"aba" : 															{
+																"amount" : 425040.0
+															}
+,
+															"peg" : 															{
+																"location" : 0,
+																"amount" : 98.290000000000006
+															}
+,
+															"water" : 															{
+																"location" : 0,
+																"amount" : 87.219999999999999
+															}
+
+														}
+,
+														"20221030123352" : 														{
+															"aba" : 															{
+																"amount" : 575700.0
+															}
+,
+															"peg" : 															{
+																"location" : 0,
+																"amount" : 79.659999999999997
+															}
+,
+															"water" : 															{
+																"location" : 0,
+																"amount" : 93.879999999999995
+															}
+
+														}
+,
+														"20221030123402" : 														{
+															"aba" : 															{
+																"amount" : 385080.0
+															}
+,
+															"peg" : 															{
+																"location" : 0,
+																"amount" : 79.569999999999993
+															}
+,
+															"water" : 															{
+																"location" : 0,
+																"amount" : 70.569999999999993
+															}
+
+														}
 
 													}
 ,
@@ -6056,7 +6446,7 @@
 					"patching_rect" : [ 1241.5, 744.0, 135.0, 21.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 1134.5, 235.0, 142.0, 21.0 ],
-					"text" : "0.00 mL",
+					"text" : "50.12 mL",
 					"textcolor" : [ 0.699999988079071, 0.699999988079071, 0.699999988079071, 1.0 ],
 					"varname" : "peg[2]"
 				}
@@ -6089,7 +6479,7 @@
 					"patching_rect" : [ 883.092345999999907, 744.0, 135.0, 21.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 1134.5, 214.0, 142.0, 21.0 ],
-					"text" : "0.25 mL",
+					"text" : "1.39 mL",
 					"textcolor" : [ 0.699999988079071, 0.699999988079071, 0.699999988079071, 1.0 ],
 					"varname" : "peg[1]"
 				}
@@ -6412,7 +6802,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 926.0, 93.0, 122.0, 22.0 ],
-									"text" : "-- Luminosity: 44.74"
+									"text" : "-- Luminosity: 3.01"
 								}
 
 							}
@@ -9509,7 +9899,7 @@
 					"patching_rect" : [ 1066.284362999999757, 744.0, 135.0, 21.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 1134.5, 193.0, 142.0, 21.0 ],
-					"text" : "0.29 mL",
+					"text" : "1.73 mL",
 					"textcolor" : [ 0.699999988079071, 0.699999988079071, 0.699999988079071, 1.0 ],
 					"varname" : "peg"
 				}
@@ -9615,7 +10005,7 @@
 					"patching_rect" : [ 677.0, 272.0, 134.0, 21.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 1134.5, 172.0, 142.0, 21.0 ],
-					"text" : "80.38 HORAS",
+					"text" : "124.57 HORAS",
 					"textcolor" : [ 0.699999988079071, 0.699999988079071, 0.699999988079071, 1.0 ],
 					"varname" : "hours"
 				}
@@ -9645,7 +10035,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 605.092345999999907, 158.5, 185.0, 22.0 ],
-					"text" : "80.375434"
+					"text" : "124.569197"
 				}
 
 			}
@@ -9688,7 +10078,7 @@
 					"patching_rect" : [ 1325.092345999999907, 17.5, 56.0, 22.0 ],
 					"restore" : 					{
 						"luminosity" : [ 0.0 ],
-						"luminosity_slider" : [ 0.2467 ],
+						"luminosity_slider" : [ 3.009999990463257 ],
 						"main_out_level" : [ 146 ]
 					}
 ,
@@ -11656,7 +12046,7 @@
 					"patching_rect" : [ 490.5, 808.5, 208.0, 49.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 570.25, 782.5, 110.75, 49.0 ],
-					"text" : "0.38",
+					"text" : "3.01",
 					"textcolor" : [ 0.697254300117493, 0.697254300117493, 0.697254300117493, 1.0 ],
 					"textjustification" : 2,
 					"varname" : "luminosity_readout"
@@ -12153,7 +12543,7 @@
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
 													"patching_rect" : [ 44.0, 182.0, 174.25, 23.0 ],
-													"text" : "set luciferase.9"
+													"text" : "set luciferase.7"
 												}
 
 											}
@@ -20237,7 +20627,7 @@
 					"patching_rect" : [ 358.5, 554.5, 208.0, 49.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 570.25, 643.0, 110.75, 49.0 ],
-					"text" : "-97.89",
+					"text" : "-99.99",
 					"textcolor" : [ 0.697254300117493, 0.698039215686274, 0.697254300117493, 1.0 ],
 					"textjustification" : 2,
 					"varname" : "sound_amplitude_readout"
@@ -20441,6 +20831,30 @@
 						"showontab" : 0,
 						"assistshowspatchername" : 0,
 						"boxes" : [ 							{
+								"box" : 								{
+									"id" : "obj-41",
+									"maxclass" : "newobj",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "float" ],
+									"patching_rect" : [ 986.249999999999886, 397.0, 45.0, 22.0 ],
+									"text" : "/ 1000."
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-38",
+									"maxclass" : "newobj",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "int" ],
+									"patching_rect" : [ 986.249999999999886, 365.00006099999996, 79.0, 22.0 ],
+									"text" : "random 1000"
+								}
+
+							}
+, 							{
 								"box" : 								{
 									"id" : "obj-39",
 									"maxclass" : "button",
@@ -21506,6 +21920,13 @@
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-41", 0 ],
+									"source" : [ "obj-38", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-40", 0 ],
 									"source" : [ "obj-39", 0 ]
 								}
@@ -21513,8 +21934,16 @@
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-38", 0 ],
+									"order" : 1,
+									"source" : [ "obj-40", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-42", 0 ],
-									"order" : 12,
+									"order" : 13,
 									"source" : [ "obj-40", 0 ]
 								}
 
@@ -21522,14 +21951,6 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-43", 0 ],
-									"order" : 10,
-									"source" : [ "obj-40", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-46", 0 ],
 									"order" : 11,
 									"source" : [ "obj-40", 0 ]
 								}
@@ -21537,31 +21958,15 @@
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-46", 0 ],
+									"order" : 12,
+									"source" : [ "obj-40", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-51", 0 ],
-									"order" : 5,
-									"source" : [ "obj-40", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-52", 0 ],
-									"order" : 9,
-									"source" : [ "obj-40", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-55", 0 ],
-									"order" : 2,
-									"source" : [ "obj-40", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-58", 0 ],
 									"order" : 6,
 									"source" : [ "obj-40", 0 ]
 								}
@@ -21569,15 +21974,15 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-61", 0 ],
-									"order" : 8,
+									"destination" : [ "obj-52", 0 ],
+									"order" : 10,
 									"source" : [ "obj-40", 0 ]
 								}
 
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-64", 0 ],
+									"destination" : [ "obj-55", 0 ],
 									"order" : 3,
 									"source" : [ "obj-40", 0 ]
 								}
@@ -21585,15 +21990,7 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-67", 0 ],
-									"order" : 4,
-									"source" : [ "obj-40", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-69", 0 ],
+									"destination" : [ "obj-58", 0 ],
 									"order" : 7,
 									"source" : [ "obj-40", 0 ]
 								}
@@ -21601,8 +21998,40 @@
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-61", 0 ],
+									"order" : 9,
+									"source" : [ "obj-40", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-64", 0 ],
+									"order" : 4,
+									"source" : [ "obj-40", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-67", 0 ],
+									"order" : 5,
+									"source" : [ "obj-40", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-69", 0 ],
+									"order" : 8,
+									"source" : [ "obj-40", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-73", 0 ],
-									"order" : 1,
+									"order" : 2,
 									"source" : [ "obj-40", 0 ]
 								}
 
@@ -21618,8 +22047,15 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-76", 0 ],
-									"order" : 13,
+									"order" : 14,
 									"source" : [ "obj-40", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-24", 0 ],
+									"source" : [ "obj-41", 0 ]
 								}
 
 							}
