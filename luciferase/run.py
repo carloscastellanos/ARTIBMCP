@@ -203,16 +203,18 @@ def main():
     callback_obj = gp.check_result(gp.use_python_logging())
 
     # establish connection with digital camera
-    camera = setupCamera()
+    # camera = setupCamera()
 
     # ==== Syphon setup details ==== #
     # Syphon.Server("window and syphon server name", frame size, show)
     syphon_luciferase_server = Syphon.Server(
         "ServerLuciferase", DIMENSIONS_MAIN, show=False
     )
-    syphon_luciferasecv_server = Syphon.Server(
-        "ServerLuciferaseCV", DIMENSIONS_CV, show=False
-    )
+    # syphon_luciferasecv_server = Syphon.Server(
+    #     "ServerLuciferaseCV", DIMENSIONS_CV, show=False
+    # )
+
+    RAND_IMG = ("DSC00235.JPG", "DSC00521.JPG", "DSC00523.JPG")
 
     ## ========== MAIN LOOP ========== ##
     try:
@@ -223,27 +225,28 @@ def main():
                 # ==== grab image from camera and save to disk === #
                 prevTime = currTime  # reset time-lapse
                 print("Capturing image")
-                file_path = camera.capture(gp.GP_CAPTURE_IMAGE)
-                print(
-                    "Camera file path: {0}/{1}".format(file_path.folder, file_path.name)
-                )
-                # rename the file with a timestamp
-                if file_path.name.lower().endswith(".jpg"):
-                    new_filename = "{}.jpg".format(timestr)
-                target = os.path.join("./captures", new_filename)
-                print("Copying image to", target)
-                camera_file = camera.file_get(
-                    file_path.folder, file_path.name, gp.GP_FILE_TYPE_NORMAL
-                )
-                camera_file.save(target)
-                # load image
-                img = loadImg(target)
+
+                img = loadImg("captures/" + RAND_IMG[random.randint(0, 2)])
+
+                # file_path = camera.capture(gp.GP_CAPTURE_IMAGE)
+                # print(
+                #     "Camera file path: {0}/{1}".format(file_path.folder, file_path.name)
+                # )
+                # # rename the file with a timestamp
+                # if file_path.name.lower().endswith(".jpg"):
+                #     new_filename = "{}.jpg".format(timestr)
+                # target = os.path.join("./captures", new_filename)
+                # print("Copying image to", target)
+                # camera_file = camera.file_get(
+                #     file_path.folder, file_path.name, gp.GP_FILE_TYPE_NORMAL
+                # )
+                # camera_file.save(target)
+                # # load image
+                # img = loadImg(target)
                 # resize image for Syphon
-                imgLuciferase = cv2.resize(
-                    img, DIMENSIONS_MAIN, interpolation=cv2.INTER_AREA
-                )
+                imgLuciferase=cv2.resize(img, DIMENSIONS_MAIN, interpolation = cv2.INTER_AREA)
                 # opencv uses bgr so we have to convert
-                imgLuciferaseCvt = cv2.cvtColor(imgLuciferase, cv2.COLOR_BGR2RGB)
+                imgLuciferaseCvt=cv2.cvtColor(imgLuciferase, cv2.COLOR_BGR2RGB)
 
                 # ==== Load ML model and perform inference ==== #
                 # (make sure image is resized/cropped correctly for the model, e.g. 224x224 for VGG16)
@@ -395,9 +398,11 @@ def main():
 
         glfw.terminate()
         cv2.destroyAllWindows()
+    except:
+        print("Something went wrong")
     finally:
         # clean up
-        camera.exit()
+        # camera.exit()
         print("done")
         return 0
 

@@ -204,12 +204,18 @@ def main():
     callback_obj = gp.check_result(gp.use_python_logging())
 
     # establish connection with digital camera
-    camera = setupCamera()
+    # camera = setupCamera()
 
     # ==== Syphon setup details ==== #
     # Syphon.Server("window and syphon server name", frame size, show)
     syphon_gfp_server = Syphon.Server("ServerGFP", DIMENSIONS_MAIN, show=False)
-    syphon_gfpcv_server = Syphon.Server("ServerGFPCV", DIMENSIONS_CV, show=False)
+    # syphon_gfpcv_server = Syphon.Server("ServerGFPCV", DIMENSIONS_CV, show=False)
+
+    RAND_IMG = (
+        "dr5sprayseedlings3-00.jpg",
+        "dr5sprayseedlings3-01.jpg",
+        "dr5sprayseedlings3-02-1.jpg",
+    )
 
     ## ========== MAIN LOOP ========== ##
     try:
@@ -220,22 +226,25 @@ def main():
                 # ==== grab image from camera and save to disk === #
                 prevTime = currTime  # reset time-lapse
                 print("Capturing image")
-                file_path = camera.capture(gp.GP_CAPTURE_IMAGE)
-                print(
-                    "Camera file path: {0}/{1}".format(file_path.folder, file_path.name)
-                )
-                # rename the file with a timestamp
-                if file_path.name.lower().endswith(".jpg"):
-                    new_filename = "{}.jpg".format(timestr)
-                target = os.path.join("./captures", new_filename)
-                print("Copying image to", target)
-                camera_file = camera.file_get(
-                    file_path.folder, file_path.name, gp.GP_FILE_TYPE_NORMAL
-                )
-                camera_file.save(target)
-                # load image
-                print("loading image..")
-                img = loadImg(target)
+
+                img = loadImg("captures/" + RAND_IMG[random.randint(0, 2)])
+
+                # file_path = camera.capture(gp.GP_CAPTURE_IMAGE)
+                # print(
+                #     "Camera file path: {0}/{1}".format(file_path.folder, file_path.name)
+                # )
+                # # rename the file with a timestamp
+                # if file_path.name.lower().endswith(".jpg"):
+                #     new_filename = "{}.jpg".format(timestr)
+                # target = os.path.join("./captures", new_filename)
+                # print("Copying image to", target)
+                # camera_file = camera.file_get(
+                #     file_path.folder, file_path.name, gp.GP_FILE_TYPE_NORMAL
+                # )
+                # camera_file.save(target)
+                # # load image
+                # print("loading image..")
+                # img = loadImg(target)
                 # resize image for Syphon
                 print("resizing image..")
                 imgGFP = cv2.resize(img, DIMENSIONS_MAIN, interpolation=cv2.INTER_AREA)
@@ -347,17 +356,17 @@ def main():
 
                 # ==== Perform contour detection & analysis ==== #
                 # resize image for Syphon
-                imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-                imgGFPCV = cv2.resize(
-                    imgGray, DIMENSIONS_CV, interpolation=cv2.INTER_AREA
-                )
+                # imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+                # imgGFPCV = cv2.resize(
+                #     imgGray, DIMENSIONS_CV, interpolation=cv2.INTER_AREA
+                # )
                 # blur & threshold
-                imgBlur = cv2.medianBlur(imgGFPCV, 5)
-                ret, thresh = cv2.threshold(
-                    imgBlur, int(args.threshold), 255, cv2.THRESH_BINARY
-                )
-
-                print("contour detection...")
+                # imgBlur = cv2.medianBlur(imgGFPCV, 5)
+                # ret, thresh = cv2.threshold(
+                #     imgBlur, int(args.threshold), 255, cv2.THRESH_BINARY
+                # )
+                #
+                # print("contour detection...")
                 # # find Contours
                 # contours, hierarchy = cv2.findContours(
                 #     thresh.copy(), cv2.RETR_CCOMP, cv2.CHAIN_APPROX_SIMPLE
@@ -423,10 +432,12 @@ def main():
                 # ==== Perform color analysis, look amount of green in image ==== #
                 # send data via OSC
                 print("getting green")
-                sendLuminosity(getGreenPercentage(img), OSC_ADDRESSES[1])
+                # sendLuminosity(getGreenPercentage(img), OSC_ADDRESSES[1])
+                sendLuminosity(random.uniform(25.1, 29.6), OSC_ADDRESSES[1])
 
                 # cv2.imshow("Camera image", img)  # show image
                 # draw frame using opengl and send it to Syphon so Max can grab it
+                print("sending syphon")
                 syphon_gfp_server.draw_and_send(imgGFPCvt)
                 # out2 = cv2.cvtColor(out, cv2.COLOR_GRAY2RGB)
                 # syphon_gfpcv_server.draw_and_send(out2)
@@ -437,9 +448,11 @@ def main():
 
         glfw.terminate()
         cv2.destroyAllWindows()
+    except:
+        print("Something went wrong")
     finally:
         # clean up
-        camera.exit()
+        # camera.exit()
         print("done")
         return 0
 
